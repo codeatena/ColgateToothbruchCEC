@@ -1,10 +1,284 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity"
+    android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/light_gray1">
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Find the brush \nthat's right for you:"
+            android:gravity="center"
+            android:textColor="@color/blue"
+            android:textSize="45sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/light_gray">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="50dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="BENIFITS"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/drak_gray"
+                android:textSize="30sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:button="@drawable/checkbox_selector"
+                    android:text="Best Possible Clean"
+                    android:textColor="@color/drak_gray"
+                    android:textSize="25sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:button="@drawable/checkbox_selector"
+                    android:text="Whiter Smile"
+                    android:textColor="@color/drak_gray"
+                    android:textSize="25sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:button="@drawable/checkbox_selector"
+                    android:text="Specialty (Sensitivity Relief/Gum Health)"
+                    android:textColor="@color/drak_gray"
+                    android:textSize="25sp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/light_gray1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="50dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="BRISTLE \nTYPE"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/drak_gray"
+                android:textSize="30sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:button="@drawable/checkbox_selector"
+                    android:text="Extra Soft"
+                    android:textColor="@color/drak_gray"
+                    android:textSize="25sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:button="@drawable/checkbox_selector"
+                    android:text="Soft"
+                    android:textColor="@color/drak_gray"
+                    android:textSize="25sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:button="@drawable/checkbox_selector"
+                    android:text="Medium"
+                    android:textColor="@color/drak_gray"
+                    android:textSize="25sp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/light_gray">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="50dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="BRAND"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/drak_gray"
+                android:textSize="30sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="60dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:button="@drawable/checkbox_selector"
+                    android:textColor="@color/drak_gray"
+                    android:textSize="25sp"/>
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/colgate"
+                    android:scaleType="fitXY"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:button="@drawable/checkbox_selector"
+                    android:textColor="@color/drak_gray"
+                    android:textSize="25sp"/>
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/oral"
+                    android:scaleType="fitXY"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.7"
+        android:background="@color/light_gray1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:layout_width="250dp"
+                android:layout_height="70dp"
+                android:text="WHAT'S NEW"
+                android:textSize="25sp"
+                fancy:fb_textColor="@android:color/white"
+                fancy:fb_defaultColor="@color/drak_gray"
+                fancy:fb_borderWidth="3dp"
+                fancy:fb_borderColor="@color/drak_gray"
+                fancy:fb_radius="10dp"
+                android:layout_marginStart="50dp"
+                android:layout_centerVertical="true"
+                 />
+
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:layout_width="250dp"
+                android:layout_height="70dp"
+                android:text="SUBMIT"
+                android:textSize="25sp"
+                fancy:fb_textColor="@android:color/white"
+                fancy:fb_defaultColor="@color/blue"
+                fancy:fb_borderWidth="3dp"
+                fancy:fb_borderColor="@color/blue"
+                fancy:fb_radius="10dp"
+                android:layout_marginEnd="50dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:onClick="onSubmit"
+                />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

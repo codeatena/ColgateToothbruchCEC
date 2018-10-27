@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardBackgroundColor="@android:color/transparent"
+    card_view:cardElevation="0dp"
+    card_view:cardCornerRadius="0dp"
+    card_view:contentPadding="20dp"
+    android:id="@+id/parent_view">
+
+    <LinearLayout
+        android:id="@+id/left_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp">
+
+        <ImageView
+            android:id="@+id/product_imageview"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:src="@drawable/thumb"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/right_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="300dp"
+        android:layout_marginEnd="30dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/colgate_imageview"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/colgate"
+                android:scaleType="fitStart"
+                android:adjustViewBounds="true"/>
+
+            <TextView
+                android:id="@+id/name_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="360 Advanced 4 Zone"
+                android:textSize="25sp"
+                android:textColor="@color/drak_gray"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/description_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:textColor="@color/drak_gray"
+            android:text="@string/product_description"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textColor="@color/drak_gray"
+                    android:text="Reviews:"/>
+
+                <hyogeun.github.com.colorratingbarlib.ColorRatingBar
+                    android:id="@+id/rating_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:rating="3.5"
+                    app:changeable="false"
+                    app:empty_color="#b6d6ea"
+                    app:progress_color="@color/blue"
+                    android:scaleX="0.5"
+                    android:scaleY="0.5"
+                    android:layout_marginStart="-60dp"
+                    android:layout_marginTop="-20dp"
+                    android:layout_marginBottom="-20dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/price_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$3.99"
+                android:textSize="30sp"
+                android:textColor="@color/drak_gray"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
