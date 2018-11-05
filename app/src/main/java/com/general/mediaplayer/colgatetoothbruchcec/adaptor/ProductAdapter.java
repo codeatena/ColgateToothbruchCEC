@@ -135,7 +135,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductA
         }
     }
 
-    private Drawable loadDrawableFromAssets(Context context, String path)
+    static public Drawable loadDrawableFromAssets(Context context, String path)
     {
         InputStream stream = null;
         try

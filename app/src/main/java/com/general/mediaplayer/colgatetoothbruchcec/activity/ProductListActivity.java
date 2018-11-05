@@ -1,5 +1,6 @@
 package com.general.mediaplayer.colgatetoothbruchcec.activity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.general.mediaplayer.colgatetoothbruchcec.R;
 import com.general.mediaplayer.colgatetoothbruchcec.adaptor.ProductAdapter;
@@ -33,6 +37,19 @@ public class ProductListActivity extends AppCompatActivity {
 
     @BindView(R.id.sort_button)
     FancyButton sortButton;
+
+    @BindView(R.id.detail_layout)
+    RelativeLayout detailLayout;
+
+    @BindView(R.id.detail_imageview)
+    ImageView detailImageView;
+
+    @BindView(R.id.detail_name)
+    TextView detailnameTextView;
+
+    @BindView(R.id.colgate_imageview)
+    ImageView colgateImageView;
+
 
     ProductAdapter productAdapter;
     List<ProductModel> products = new ArrayList<>();
@@ -91,7 +108,17 @@ public class ProductListActivity extends AppCompatActivity {
             @Override
             public void onItemLeftClick(ProductModel productModel) {
 
-                Log.d("tag" ,"onItemLeftClick");
+                detailLayout.setVisibility(View.VISIBLE);
+                detailnameTextView.setText(productModel.productname);
+                Drawable drawable = ProductAdapter.loadDrawableFromAssets(ProductListActivity.this ,productModel.product_image);
+                detailImageView.setImageDrawable(drawable);
+                Drawable myDrawable;
+                if (productModel.isColgate){
+                    myDrawable = ProductListActivity.this.getResources().getDrawable(R.drawable.colgate);
+                }else {
+                    myDrawable = ProductListActivity.this.getResources().getDrawable(R.drawable.oral);
+                }
+                colgateImageView.setImageDrawable(myDrawable);
             }
 
             @Override
@@ -142,6 +169,12 @@ public class ProductListActivity extends AppCompatActivity {
     public void onHome(View view) {
 
         finish();
+
+    }
+
+    public void onCancel(View view) {
+
+        detailLayout.setVisibility(View.INVISIBLE);
 
     }
 

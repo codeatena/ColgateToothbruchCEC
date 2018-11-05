@@ -59,7 +59,6 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             />
-        sort_button
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="70dp"
@@ -82,5 +81,70 @@
         android:background="@null">
 
     </android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:id="@+id/detail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#77696b70"
+        android:visibility="invisible">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp">
+
+            <ImageView
+                android:id="@+id/detail_imageview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/thumb"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp" />
+
+            <ImageView
+                android:id="@+id/colgate_imageview"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/colgate"
+                android:layout_marginBottom="10dp"
+                android:layout_above="@+id/detail_name"
+                android:scaleType="fitStart"
+                android:adjustViewBounds="true"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"/>
+
+            <TextView
+                android:id="@+id/detail_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/drak_gray"
+                android:layout_below="@+id/detail_imageview"
+                android:text="product name"
+                android:textColor="@android:color/white"
+                android:textSize="30sp"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"/>
+
+            <ImageButton
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/cancel"
+                android:scaleType="centerCrop"
+                android:background="@android:color/transparent"
+                android:layout_alignParentEnd="true"
+                android:onClick="onCancel"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
 
 </RelativeLayout>
