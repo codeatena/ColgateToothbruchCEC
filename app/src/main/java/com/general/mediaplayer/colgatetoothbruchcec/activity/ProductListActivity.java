@@ -13,9 +13,14 @@ import com.general.mediaplayer.colgatetoothbruchcec.R;
 import com.general.mediaplayer.colgatetoothbruchcec.adaptor.ProductAdapter;
 import com.general.mediaplayer.colgatetoothbruchcec.model.ProductModel;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,25 +45,47 @@ public class ProductListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_list);
 
         ButterKnife.bind(this);
+
+        parseJson();
         recyclerInit();
         popupInit();
+    }
+
+    private void parseJson()
+    {
+        InputStream inputStream = getResources().openRawResource(R.raw.product);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        int ctr;
+        try {
+            ctr = inputStream.read();
+            while (ctr != -1) {
+                byteArrayOutputStream.write(ctr);
+                ctr = inputStream.read();
+            }
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            // Parse the data into jsonobject to get original data in form of json.
+            JSONObject jObject = new JSONObject(byteArrayOutputStream.toString());
+            JSONArray jArray = jObject.getJSONArray("products");
+            for (int i = 0; i < jArray.length(); i++) {
+
+                ProductModel productModel = new ProductModel(jArray.getJSONObject(i));
+                products.add(productModel);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void recyclerInit(){
 
         productRecyclerView.setHasFixedSize(true);
         productRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        for (int i = 0 ; i< 10 ; i++){
-            ProductModel model = new ProductModel();
-            model.isColgate = (i % 2 == 0);
-            model.price = "$4.99";
-            model.star = 4;
-            model.long_description = getString(R.string.product_description);
-            model.productname = String.format(Locale.getDefault() ,"Product %d" ,i);
-            products.add(model);
-        }
-
         productAdapter = new ProductAdapter(products ,this);
         productAdapter.setListener(new ProductAdapter.OnItemClickListener() {
             @Override

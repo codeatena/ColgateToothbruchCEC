@@ -43,7 +43,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductA
     @Override
     public void onBindViewHolder(final ProductAdapterHolder holder, int position) {
 
-        if (position % 2 == 0){
+        if (position % 2 == 1){
             holder.parentView.setBackgroundColor(context.getResources().getColor(R.color.light_gray));
         }else {
             holder.parentView.setBackgroundColor(context.getResources().getColor(R.color.light_gray1));
@@ -62,6 +62,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductA
         holder.descriptionTextView.setText(list.get(position).long_description);
         holder.bind(list.get(position) ,listener);
 
+        Drawable drawable = loadDrawableFromAssets(context ,list.get(position).product_image);
+        holder.productImageView.setImageDrawable(drawable);
     }
 
     @Override

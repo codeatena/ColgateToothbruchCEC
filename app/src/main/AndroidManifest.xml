@@ -11,16 +11,16 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="reversePortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ProductListActivity" />
-        <activity android:name=".activity.ProductDetailActivity"></activity>
+        <activity android:name=".activity.ProductListActivity" android:screenOrientation="reversePortrait"/>
+        <activity android:name=".activity.ProductDetailActivity" android:screenOrientation="reversePortrait">
+        </activity>
     </application>
 
 </manifest>
