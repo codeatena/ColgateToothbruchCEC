@@ -1,5 +1,6 @@
 package com.general.mediaplayer.colgatetoothbruchcec.activity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.general.mediaplayer.colgatetoothbruchcec.R;
 import com.general.mediaplayer.colgatetoothbruchcec.adaptor.ProductAdapter;
+import com.general.mediaplayer.colgatetoothbruchcec.model.Global;
 import com.general.mediaplayer.colgatetoothbruchcec.model.ProductModel;
 
 import org.json.JSONArray;
@@ -125,6 +127,10 @@ public class ProductListActivity extends AppCompatActivity {
             public void onItemRightClick(ProductModel productModel) {
 
                 Log.d("tag" ,"onItemRightClick");
+                Global.currentProduct = productModel;
+                Intent intent = new Intent(ProductListActivity.this ,ProductDetailActivity.class);
+                startActivity(intent);
+
             }
         });
         productRecyclerView.setAdapter(productAdapter);
