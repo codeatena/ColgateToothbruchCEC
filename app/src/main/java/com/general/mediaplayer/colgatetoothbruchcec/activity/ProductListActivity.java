@@ -13,19 +13,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.general.mediaplayer.colgatetoothbruchcec.R;
 import com.general.mediaplayer.colgatetoothbruchcec.adaptor.ProductAdapter;
 import com.general.mediaplayer.colgatetoothbruchcec.model.Global;
 import com.general.mediaplayer.colgatetoothbruchcec.model.ProductModel;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,9 +48,7 @@ public class ProductListActivity extends BaseActivity {
 
 
     ProductAdapter productAdapter;
-    List<ProductModel> products = new ArrayList<>();
-
-    String benefitStr, bristle_typeStr, brandStr;
+    List<ProductModel> filteredProducts = new ArrayList<>();
 
     PopupMenu sortMenu;
 
@@ -68,47 +59,16 @@ public class ProductListActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
-        parseJson();
-        recyclerInit();
+        sortProduct("");
+
         popupInit();
-    }
-
-    private void parseJson()
-    {
-        InputStream inputStream = getResources().openRawResource(R.raw.product);
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        int ctr;
-        try {
-            ctr = inputStream.read();
-            while (ctr != -1) {
-                byteArrayOutputStream.write(ctr);
-                ctr = inputStream.read();
-            }
-            inputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-// Parse the data into jsonobject to get original data in form of json.
-            JSONObject jObject = new JSONObject(byteArrayOutputStream.toString());
-            JSONArray jArray = jObject.getJSONArray("products");
-            for (int i = 0; i < jArray.length(); i++) {
-
-                ProductModel productModel = new ProductModel(jArray.getJSONObject(i));
-                products.add(productModel);
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
     private void recyclerInit(){
 
         productRecyclerView.setHasFixedSize(true);
         productRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        productAdapter = new ProductAdapter(products ,this);
+        productAdapter = new ProductAdapter(filteredProducts ,this);
         productAdapter.setListener(new ProductAdapter.OnItemClickListener() {
             @Override
             public void onItemLeftClick(ProductModel productModel) {
@@ -118,9 +78,9 @@ public class ProductListActivity extends BaseActivity {
                 Drawable drawable = ProductAdapter.loadDrawableFromAssets(ProductListActivity.this ,productModel.product_image);
                 detailImageView.setImageDrawable(drawable);
                 Drawable myDrawable;
-                if (productModel.isColgate){
+                if (productModel.brand.equals("Colgate")){
                     myDrawable = ProductListActivity.this.getResources().getDrawable(R.drawable.colgate);
-                }else {
+                } else {
                     myDrawable = ProductListActivity.this.getResources().getDrawable(R.drawable.oral);
                 }
                 colgateImageView.setImageDrawable(myDrawable);
@@ -136,6 +96,7 @@ public class ProductListActivity extends BaseActivity {
 
             }
         });
+
         productRecyclerView.setAdapter(productAdapter);
         productAdapter.notifyDataSetChanged();
     }
@@ -172,8 +133,61 @@ public class ProductListActivity extends BaseActivity {
     }
 
     private void sortProduct(String sortStr) {
-        Toast.makeText(getApplicationContext(),
-                sortStr, Toast.LENGTH_SHORT).show();
+
+//        List<ProductModel> benefit_products = addProduct(Global.products, Global.benefitFilter, "Benefits");
+//        List<ProductModel> bristle_products = addProduct(benefit_products, Global.bristle_typeFilter, "Bristle Type");
+        List<ProductModel> products = addProduct(Global.products, Global.brandFilter, "Brand");
+
+        if (sortStr.equals("")) {
+            filteredProducts = products;
+        } else {
+            filteredProducts = products;
+        }
+
+        if (filteredProducts.size() !=0) {
+            recyclerInit();
+        }
+    }
+
+    private List<ProductModel> addProduct(List<ProductModel> products, List<String> filters, String typeSttr) {
+        List<ProductModel> filtered_products = new ArrayList<>();
+        if (filters.size() != 0) {
+            switch (typeSttr) {
+                case "Benefits":
+                    for (ProductModel product : products) {
+                        if (stringContainsItemFromList(product.benefits, filters)) {
+                            filtered_products.add(product);
+                        }
+                    }
+                case "Bristle Type":
+                    for (ProductModel product : products) {
+                        if (stringContainsItemFromList(product.type, filters)) {
+                            filtered_products.add(product);
+                        }
+                    }
+                case "Brand":
+                    for (ProductModel product : products) {
+                        if (stringContainsItemFromList(product.brand, filters)) {
+                            filtered_products.add(product);
+                        }
+                    }
+            }
+        } else {
+            filtered_products = products;
+        }
+
+        return  filtered_products;
+    }
+
+    public static boolean stringContainsItemFromList(String inputStr, List<String> items)
+    {
+        for (String item : items) {
+            if(inputStr.equals(item)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void addMenu(PopupMenu menu ,List<String> list)
@@ -203,8 +217,8 @@ public class ProductListActivity extends BaseActivity {
 
     public void onScrolltoBottom(View view) {
 
-        if (products.size() > 1)
-            productRecyclerView.scrollToPosition(products.size() - 1);
+        if (filteredProducts.size() > 1)
+            productRecyclerView.scrollToPosition(filteredProducts.size() - 1);
     }
 
 }

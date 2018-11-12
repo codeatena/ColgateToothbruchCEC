@@ -50,7 +50,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductA
         }
 
         Drawable myDrawable;
-        if (list.get(position).isColgate){
+        if (list.get(position).brand.equals("Colgate")){
             myDrawable = context.getResources().getDrawable(R.drawable.colgate);
         }else {
             myDrawable = context.getResources().getDrawable(R.drawable.oral);

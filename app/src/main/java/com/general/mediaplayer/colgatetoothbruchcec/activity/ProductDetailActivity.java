@@ -55,7 +55,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         descriptionTextView.setText(Global.currentProduct.long_description);
 
         Drawable myDrawable;
-        if (Global.currentProduct.isColgate){
+        if (Global.currentProduct.brand.equals("Colgate")){
             myDrawable = this.getResources().getDrawable(R.drawable.colgate);
         }else {
             myDrawable = this.getResources().getDrawable(R.drawable.oral);
