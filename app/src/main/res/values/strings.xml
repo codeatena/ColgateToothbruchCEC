@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">ColgateToothbruchCEC</string>
     <string name="product_description">Colgate 360 4 Zone manual toothbrush provides a 4 zone bacteria removing action. The advanced multi-action brsitle design (vs. an ordinary flat trim toothbrush) and the innovative cheek, tongue cleaner design together remove bacteria from teeth ,tongue ,cheeks, and gurms.</string>
+    <string name="price_low_high">Price: Low to High</string>
+    <string name="price_high_low">Price: High to Low</string>
+    <string name="brand">Brand</string>
+    <string name="bristle_type">Bristle Type</string>
+    <string name="pack_size">Pack Size</string>
 </resources>

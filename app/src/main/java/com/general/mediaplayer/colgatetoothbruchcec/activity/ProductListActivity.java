@@ -3,16 +3,17 @@ package com.general.mediaplayer.colgatetoothbruchcec.activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.general.mediaplayer.colgatetoothbruchcec.R;
 import com.general.mediaplayer.colgatetoothbruchcec.adaptor.ProductAdapter;
@@ -32,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import mehdi.sakout.fancybuttons.FancyButton;
 
-public class ProductListActivity extends AppCompatActivity {
+public class ProductListActivity extends BaseActivity {
 
     @BindView(R.id.product_recycler)
     RecyclerView productRecyclerView;
@@ -55,6 +56,8 @@ public class ProductListActivity extends AppCompatActivity {
 
     ProductAdapter productAdapter;
     List<ProductModel> products = new ArrayList<>();
+
+    String benefitStr, bristle_typeStr, brandStr;
 
     PopupMenu sortMenu;
 
@@ -86,7 +89,7 @@ public class ProductListActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         try {
-            // Parse the data into jsonobject to get original data in form of json.
+// Parse the data into jsonobject to get original data in form of json.
             JSONObject jObject = new JSONObject(byteArrayOutputStream.toString());
             JSONArray jArray = jObject.getJSONArray("products");
             for (int i = 0; i < jArray.length(); i++) {
@@ -142,11 +145,11 @@ public class ProductListActivity extends AppCompatActivity {
         sortMenu = new PopupMenu(this ,sortButton);
 
         List <String> list = new ArrayList<>();
-        list.add("Price: Low to High");
-        list.add("Price: High to Low");
-        list.add("Brand");
-        list.add("Bristle Type");
-        list.add("Pack Size");
+        list.add(getString(R.string.price_low_high));
+        list.add(getString(R.string.price_high_low));
+        list.add(getString(R.string.brand));
+        list.add(getString(R.string.bristle_type));
+        list.add(getString(R.string.pack_size));
 
         addMenu(sortMenu ,list);
 
@@ -157,6 +160,20 @@ public class ProductListActivity extends AppCompatActivity {
                 sortMenu.show();
             }
         });
+
+        sortMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                sortProduct(item.getTitle().toString());
+                return true;
+            }
+        });
+    }
+
+    private void sortProduct(String sortStr) {
+        Toast.makeText(getApplicationContext(),
+                sortStr, Toast.LENGTH_SHORT).show();
     }
 
     private void addMenu(PopupMenu menu ,List<String> list)

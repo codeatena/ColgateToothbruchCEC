@@ -31,7 +31,7 @@
         android:background="@color/light_gray">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="230dp"
             android:layout_height="match_parent"
             android:padding="50dp">
 
@@ -57,6 +57,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1">
                 <CheckBox
+                    android:id="@+id/checkbox_clean"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -71,6 +72,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1">
                 <CheckBox
+                    android:id="@+id/checkbox_whiter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -85,6 +87,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1">
                 <CheckBox
+                    android:id="@+id/checkbox_specialty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -104,7 +107,7 @@
         android:background="@color/light_gray1">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="230dp"
             android:layout_height="match_parent"
             android:padding="50dp">
 
@@ -130,6 +133,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1">
                 <CheckBox
+                    android:id="@+id/checkbox_extra_soft"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -144,6 +148,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1">
                 <CheckBox
+                    android:id="@+id/checkbox_soft"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -158,6 +163,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1">
                 <CheckBox
+                    android:id="@+id/checkbox_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -178,7 +184,7 @@
         android:background="@color/light_gray">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="230dp"
             android:layout_height="match_parent"
             android:padding="50dp">
 
@@ -204,6 +210,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1">
                 <CheckBox
+                    android:id="@+id/checkbox_colgate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -222,6 +229,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1">
                 <CheckBox
+                    android:id="@+id/checkbox_oral"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -260,7 +268,7 @@
                 fancy:fb_radius="10dp"
                 android:layout_marginStart="50dp"
                 android:layout_centerVertical="true"
-                 />
+                />
 
             <mehdi.sakout.fancybuttons.FancyButton
                 android:layout_width="250dp"
@@ -275,8 +283,7 @@
                 android:layout_marginEnd="50dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:onClick="onSubmit"
-                />
+                android:onClick="onSubmit" />
         </RelativeLayout>
 
     </LinearLayout>
