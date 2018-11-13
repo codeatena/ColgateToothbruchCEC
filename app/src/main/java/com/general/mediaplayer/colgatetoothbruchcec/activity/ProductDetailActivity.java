@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -63,20 +64,25 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         nameTextView.setText(Global.currentProduct.productname);
         descriptionTextView.setText(Global.currentProduct.long_description);
+        descriptionTextView.setMovementMethod(new ScrollingMovementMethod());
 
         Drawable myDrawable;
         if (Global.currentProduct.brand.equals("Colgate")){
             myDrawable = this.getResources().getDrawable(R.drawable.colgate);
-        }else {
+        } else {
             myDrawable = this.getResources().getDrawable(R.drawable.oral);
         }
 
-        if (Global.currentProduct.packSize.equals("1 pack")) {
-            checkbox_single.setChecked(true);
-        } else if (Global.currentProduct.packSize.equals("2 pack")) {
-            checkbox_2pack.setChecked(true);
-        } else if (Global.currentProduct.packSize.equals("4 pack")) {
-            checkbox_4pack.setChecked(true);
+        switch (Global.currentProduct.packSize) {
+            case "1 pack":
+                checkbox_single.setChecked(true);
+                break;
+            case "2 pack":
+                checkbox_2pack.setChecked(true);
+                break;
+            case "4 pack":
+                checkbox_4pack.setChecked(true);
+                break;
         }
 
         colgateImageView.setImageDrawable(myDrawable);

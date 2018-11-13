@@ -20,6 +20,9 @@ import com.general.mediaplayer.colgatetoothbruchcec.model.Global;
 import com.general.mediaplayer.colgatetoothbruchcec.model.ProductModel;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -139,9 +142,9 @@ public class ProductListActivity extends BaseActivity {
         List<ProductModel> products = addProduct(Global.products, Global.brandFilter, "Brand");
 
         if (sortStr.equals(getString(R.string.price_low_high))) {
-
+            filteredProducts = sortByPriceFromLow(products);
         } else if (sortStr.equals(getString(R.string.price_high_low))) {
-
+            filteredProducts = sortByPriceFromHigh(products);
         } else if (sortStr.equals(getString(R.string.brand))) {
             List<String> filters = new ArrayList<>();
             filters.add("Colgate");
@@ -179,24 +182,59 @@ public class ProductListActivity extends BaseActivity {
                             filtered_products.add(product);
                         }
                     }
+                    break;
                 case "Bristle Type":
                     for (ProductModel product : products) {
                         if (stringEqualsItemFromList(product.type, filters)) {
                             filtered_products.add(product);
                         }
                     }
+                    break;
                 case "Brand":
                     for (ProductModel product : products) {
                         if (stringEqualsItemFromList(product.brand, filters)) {
                             filtered_products.add(product);
                         }
                     }
+                    break;
             }
         } else {
             filtered_products = products;
         }
 
         return  filtered_products;
+    }
+
+    private List<ProductModel> sortByPriceFromLow(List<ProductModel> products) {
+        Collections.sort(products, new Comparator<ProductModel>() {
+            @Override
+            public int compare(ProductModel o1, ProductModel o2) {
+                if (o1.priceValue == o2.priceValue) {
+                    return  0;
+                } else if (o1.priceValue < o2.priceValue) {
+                    return  -1;
+                }
+
+                return 1;
+            }
+        });
+        return products;
+    }
+
+    private List<ProductModel> sortByPriceFromHigh(List<ProductModel> products) {
+        Collections.sort(products, new Comparator<ProductModel>() {
+            @Override
+            public int compare(ProductModel o1, ProductModel o2) {
+                if (o1.priceValue == o2.priceValue) {
+                    return  0;
+                } else if (o1.priceValue > o2.priceValue) {
+                    return  -1;
+                }
+
+                return 1;
+            }
+        });
+        return products;
     }
 
     private List<ProductModel> sortByBrand(List<ProductModel> products, List<String> filters) {
