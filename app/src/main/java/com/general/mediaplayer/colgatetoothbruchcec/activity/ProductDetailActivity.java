@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,6 +37,15 @@ public class ProductDetailActivity extends AppCompatActivity {
     @BindView(R.id.price_textview)
     TextView priceTextView;
 
+    @BindView(R.id.checkbox_single)
+    CheckBox checkbox_single;
+
+    @BindView(R.id.checkbox_2pack)
+    CheckBox checkbox_2pack;
+
+    @BindView(R.id.checkbox_4pack)
+    CheckBox checkbox_4pack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +70,15 @@ public class ProductDetailActivity extends AppCompatActivity {
         }else {
             myDrawable = this.getResources().getDrawable(R.drawable.oral);
         }
+
+        if (Global.currentProduct.packSize.equals("1 pack")) {
+            checkbox_single.setChecked(true);
+        } else if (Global.currentProduct.packSize.equals("2 pack")) {
+            checkbox_2pack.setChecked(true);
+        } else if (Global.currentProduct.packSize.equals("4 pack")) {
+            checkbox_4pack.setChecked(true);
+        }
+
         colgateImageView.setImageDrawable(myDrawable);
         ratingBar.setRating(Global.currentProduct.star);
         priceTextView.setText(Global.currentProduct.price);

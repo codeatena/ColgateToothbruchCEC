@@ -138,8 +138,28 @@ public class ProductListActivity extends BaseActivity {
 //        List<ProductModel> bristle_products = addProduct(benefit_products, Global.bristle_typeFilter, "Bristle Type");
         List<ProductModel> products = addProduct(Global.products, Global.brandFilter, "Brand");
 
-        if (sortStr.equals("")) {
-            filteredProducts = products;
+        if (sortStr.equals(getString(R.string.price_low_high))) {
+
+        } else if (sortStr.equals(getString(R.string.price_high_low))) {
+
+        } else if (sortStr.equals(getString(R.string.brand))) {
+            List<String> filters = new ArrayList<>();
+            filters.add("Colgate");
+            filters.add("Oral-B");
+            filteredProducts = sortByBrand(products, filters);
+        } else if (sortStr.equals(getString(R.string.bristle_type))) {
+            List<String> filters = new ArrayList<>();
+            filters.add("Extra Soft");
+            filters.add("Soft");
+            filters.add("Medium");
+            filteredProducts = sortByBristle_type(products, filters);
+        } else if (sortStr.equals(getString(R.string.pack_size))) {
+            List<String> filters = new ArrayList<>();
+            filters.add("1 pack");
+            filters.add("2 pack");
+            filters.add("3 pack");
+            filters.add("4 pack");
+            filteredProducts = sortByPackSize(products, filters);
         } else {
             filteredProducts = products;
         }
@@ -149,25 +169,25 @@ public class ProductListActivity extends BaseActivity {
         }
     }
 
-    private List<ProductModel> addProduct(List<ProductModel> products, List<String> filters, String typeSttr) {
+    private List<ProductModel> addProduct(List<ProductModel> products, List<String> filters, String typeStr) {
         List<ProductModel> filtered_products = new ArrayList<>();
         if (filters.size() != 0) {
-            switch (typeSttr) {
+            switch (typeStr) {
                 case "Benefits":
                     for (ProductModel product : products) {
-                        if (stringContainsItemFromList(product.benefits, filters)) {
+                        if (stringEqualsItemFromList(product.benefits, filters)) {
                             filtered_products.add(product);
                         }
                     }
                 case "Bristle Type":
                     for (ProductModel product : products) {
-                        if (stringContainsItemFromList(product.type, filters)) {
+                        if (stringEqualsItemFromList(product.type, filters)) {
                             filtered_products.add(product);
                         }
                     }
                 case "Brand":
                     for (ProductModel product : products) {
-                        if (stringContainsItemFromList(product.brand, filters)) {
+                        if (stringEqualsItemFromList(product.brand, filters)) {
                             filtered_products.add(product);
                         }
                     }
@@ -179,7 +199,46 @@ public class ProductListActivity extends BaseActivity {
         return  filtered_products;
     }
 
-    public static boolean stringContainsItemFromList(String inputStr, List<String> items)
+    private List<ProductModel> sortByBrand(List<ProductModel> products, List<String> filters) {
+        List<ProductModel> sorted_products = new ArrayList<>();
+        for (String filter : filters) {
+            for (ProductModel product : products) {
+                if (product.brand.equals(filter)) {
+                    sorted_products.add(product);
+                }
+            }
+        }
+
+        return sorted_products;
+    }
+
+    private List<ProductModel> sortByBristle_type(List<ProductModel> products, List<String> filters) {
+        List<ProductModel> sorted_products = new ArrayList<>();
+        for (String filter : filters) {
+            for (ProductModel product : products) {
+                if (product.type.equals(filter)) {
+                    sorted_products.add(product);
+                }
+            }
+        }
+
+        return sorted_products;
+    }
+
+    private List<ProductModel> sortByPackSize(List<ProductModel> products, List<String> filters) {
+        List<ProductModel> sorted_products = new ArrayList<>();
+        for (String filter : filters) {
+            for (ProductModel product : products) {
+                if (product.packSize.equals(filter)) {
+                    sorted_products.add(product);
+                }
+            }
+        }
+
+        return sorted_products;
+    }
+
+    public static boolean stringEqualsItemFromList(String inputStr, List<String> items)
     {
         for (String item : items) {
             if(inputStr.equals(item)) {
