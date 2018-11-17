@@ -31,8 +31,9 @@
         android:background="@color/light_gray">
 
         <LinearLayout
-            android:layout_width="240dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:padding="50dp">
 
             <TextView
@@ -46,8 +47,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1.8"
             android:orientation="vertical"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="40dp">
@@ -107,8 +109,9 @@
         android:background="@color/light_gray1">
 
         <LinearLayout
-            android:layout_width="240dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:padding="50dp">
 
             <TextView
@@ -122,8 +125,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1.8"
             android:orientation="vertical"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="40dp">
@@ -184,8 +188,9 @@
         android:background="@color/light_gray">
 
         <LinearLayout
-            android:layout_width="240dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:padding="50dp">
 
             <TextView
@@ -199,8 +204,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1.8"
             android:orientation="vertical"
             android:layout_marginTop="60dp"
             android:layout_marginBottom="60dp">

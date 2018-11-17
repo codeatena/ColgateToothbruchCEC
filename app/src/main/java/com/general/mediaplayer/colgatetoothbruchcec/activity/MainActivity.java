@@ -187,11 +187,11 @@ public class MainActivity extends BaseActivity {
         Global.brandFilter = new ArrayList<>();
 
         if (Global.ischeckbox_clean) {
-            Global.benefitFilter.add("Clean");
+            Global.benefitFilter.add("Best Possible Clean");
         }
 
         if (Global.ischeckbox_whiter) {
-            Global.benefitFilter.add("Whiter");
+            Global.benefitFilter.add("Whiter Smile");
         }
 
         if (Global.ischeckbox_specialty) {

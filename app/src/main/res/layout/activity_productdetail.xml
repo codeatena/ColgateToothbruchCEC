@@ -78,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="280dp"
+            android:layout_marginStart="300dp"
             android:layout_marginBottom="30dp">
 
             <LinearLayout
@@ -230,8 +230,8 @@
 
         <ImageView
             android:id="@+id/serial_imageview"
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
+            android:layout_width="350dp"
+            android:layout_height="210dp"
             android:src="@drawable/seral_placeholder"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"

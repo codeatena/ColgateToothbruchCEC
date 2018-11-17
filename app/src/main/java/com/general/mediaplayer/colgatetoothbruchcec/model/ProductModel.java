@@ -13,8 +13,9 @@ public class ProductModel {
     public String packSize;
     public String product_image;
     public String long_description;
-    public String type;
+    public String bristle_type;
     public String benefits;
+    public String section;
     public float star;
 
     public ProductModel(JSONObject jsonObject){
@@ -28,11 +29,12 @@ public class ProductModel {
             this.price = jsonObject.getString("price");
             this.priceValue = Float.valueOf(this.price.substring(1, this.price.length()));
             this.long_description = jsonObject.getString("long_description");
-            this.type = jsonObject.getString("type");
+            this.bristle_type = jsonObject.getString("bristle_type");
             this.benefits = jsonObject.getString("benefits");
+            this.section = jsonObject.getString("section");
             this.star = Float.valueOf(jsonObject.getString("star"));
 
-        }catch (Exception e){
+        } catch (Exception e){
             Log.d("Error", e.getLocalizedMessage());
         }
     }

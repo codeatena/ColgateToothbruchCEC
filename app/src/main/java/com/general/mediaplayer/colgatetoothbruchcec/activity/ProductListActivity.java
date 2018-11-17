@@ -20,7 +20,6 @@ import com.general.mediaplayer.colgatetoothbruchcec.model.Global;
 import com.general.mediaplayer.colgatetoothbruchcec.model.ProductModel;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -29,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import mehdi.sakout.fancybuttons.FancyButton;
 
-public class ProductListActivity extends BaseActivity {
+public class ProductListActivity extends UsbSerialActivity {
 
     @BindView(R.id.product_recycler)
     RecyclerView productRecyclerView;
@@ -87,6 +86,8 @@ public class ProductListActivity extends BaseActivity {
                     myDrawable = ProductListActivity.this.getResources().getDrawable(R.drawable.oral);
                 }
                 colgateImageView.setImageDrawable(myDrawable);
+
+                sendCommand(productModel.section);
             }
 
             @Override
@@ -137,34 +138,36 @@ public class ProductListActivity extends BaseActivity {
 
     private void sortProduct(String sortStr) {
 
-//        List<ProductModel> benefit_products = addProduct(Global.products, Global.benefitFilter, "Benefits");
-//        List<ProductModel> bristle_products = addProduct(benefit_products, Global.bristle_typeFilter, "Bristle Type");
-        List<ProductModel> products = addProduct(Global.products, Global.brandFilter, "Brand");
+        List<ProductModel> benefit_products = addProduct(Global.products, Global.benefitFilter, "Benefits");
+        List<ProductModel> bristle_products = addProduct(benefit_products, Global.bristle_typeFilter, "Bristle Type");
+        List<ProductModel> products = addProduct(bristle_products, Global.brandFilter, "Brand");
 
-        if (sortStr.equals(getString(R.string.price_low_high))) {
-            filteredProducts = sortByPriceFromLow(products);
-        } else if (sortStr.equals(getString(R.string.price_high_low))) {
-            filteredProducts = sortByPriceFromHigh(products);
-        } else if (sortStr.equals(getString(R.string.brand))) {
-            List<String> filters = new ArrayList<>();
-            filters.add("Colgate");
-            filters.add("Oral-B");
-            filteredProducts = sortByBrand(products, filters);
-        } else if (sortStr.equals(getString(R.string.bristle_type))) {
-            List<String> filters = new ArrayList<>();
-            filters.add("Extra Soft");
-            filters.add("Soft");
-            filters.add("Medium");
-            filteredProducts = sortByBristle_type(products, filters);
-        } else if (sortStr.equals(getString(R.string.pack_size))) {
-            List<String> filters = new ArrayList<>();
-            filters.add("1 pack");
-            filters.add("2 pack");
-            filters.add("3 pack");
-            filters.add("4 pack");
-            filteredProducts = sortByPackSize(products, filters);
-        } else {
-            filteredProducts = products;
+        if (products.size() != 0) {
+            if (sortStr.equals(getString(R.string.price_low_high))) {
+                filteredProducts = sortByPriceFromLow(products);
+            } else if (sortStr.equals(getString(R.string.price_high_low))) {
+                filteredProducts = sortByPriceFromHigh(products);
+            } else if (sortStr.equals(getString(R.string.brand))) {
+                List<String> filters = new ArrayList<>();
+                filters.add("Colgate");
+                filters.add("Oral-B");
+                filteredProducts = sortByBrand(products, filters);
+            } else if (sortStr.equals(getString(R.string.bristle_type))) {
+                List<String> filters = new ArrayList<>();
+                filters.add("Extra Soft");
+                filters.add("Soft");
+                filters.add("Medium");
+                filteredProducts = sortByBristle_type(products, filters);
+            } else if (sortStr.equals(getString(R.string.pack_size))) {
+                List<String> filters = new ArrayList<>();
+                filters.add("1 pack");
+                filters.add("2 pack");
+                filters.add("3 pack");
+                filters.add("4 pack");
+                filteredProducts = sortByPackSize(products, filters);
+            } else {
+                filteredProducts = products;
+            }
         }
 
         if (filteredProducts.size() !=0) {
@@ -174,7 +177,7 @@ public class ProductListActivity extends BaseActivity {
 
     private List<ProductModel> addProduct(List<ProductModel> products, List<String> filters, String typeStr) {
         List<ProductModel> filtered_products = new ArrayList<>();
-        if (filters.size() != 0) {
+        if (filters.size() != 0 && products.size() != 0) {
             switch (typeStr) {
                 case "Benefits":
                     for (ProductModel product : products) {
@@ -185,7 +188,7 @@ public class ProductListActivity extends BaseActivity {
                     break;
                 case "Bristle Type":
                     for (ProductModel product : products) {
-                        if (stringEqualsItemFromList(product.type, filters)) {
+                        if (stringEqualsItemFromList(product.bristle_type, filters)) {
                             filtered_products.add(product);
                         }
                     }
@@ -254,7 +257,7 @@ public class ProductListActivity extends BaseActivity {
         List<ProductModel> sorted_products = new ArrayList<>();
         for (String filter : filters) {
             for (ProductModel product : products) {
-                if (product.type.equals(filter)) {
+                if (product.bristle_type.equals(filter)) {
                     sorted_products.add(product);
                 }
             }

@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import hyogeun.github.com.colorratingbarlib.ColorRatingBar;
 
-public class ProductDetailActivity extends AppCompatActivity {
+public class ProductDetailActivity extends UsbSerialActivity {
 
     @BindView(R.id.thumb_imageview)
     ImageView thumbImageView;
@@ -46,6 +46,9 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     @BindView(R.id.checkbox_4pack)
     CheckBox checkbox_4pack;
+
+    @BindView(R.id.serial_imageview)
+    ImageView serial_imageview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +91,13 @@ public class ProductDetailActivity extends AppCompatActivity {
         colgateImageView.setImageDrawable(myDrawable);
         ratingBar.setRating(Global.currentProduct.star);
         priceTextView.setText(Global.currentProduct.price);
+
+        serial_imageview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendCommand(Global.currentProduct.section);
+            }
+        });
     }
 
     public void onBack(View view) {
