@@ -43,6 +43,7 @@
             android:onClick="onBack"/>
 
         <com.jcminarro.roundkornerlayout.RoundKornerLinearLayout
+            android:id="@+id/btnPress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:corner_radius="10dp"

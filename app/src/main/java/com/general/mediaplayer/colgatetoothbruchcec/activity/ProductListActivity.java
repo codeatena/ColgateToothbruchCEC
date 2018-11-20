@@ -28,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import mehdi.sakout.fancybuttons.FancyButton;
 
-public class ProductListActivity extends UsbSerialActivity {
+public class ProductListActivity extends BaseActivity {
 
     @BindView(R.id.product_recycler)
     RecyclerView productRecyclerView;
@@ -86,8 +86,6 @@ public class ProductListActivity extends UsbSerialActivity {
                     myDrawable = ProductListActivity.this.getResources().getDrawable(R.drawable.oral);
                 }
                 colgateImageView.setImageDrawable(myDrawable);
-
-                sendCommand(productModel.section);
             }
 
             @Override

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.general.mediaplayer.colgatetoothbruchcec.R;
 import com.general.mediaplayer.colgatetoothbruchcec.adaptor.ProductAdapter;
 import com.general.mediaplayer.colgatetoothbruchcec.model.Global;
+import com.jcminarro.roundkornerlayout.RoundKornerLinearLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,8 +48,8 @@ public class ProductDetailActivity extends UsbSerialActivity {
     @BindView(R.id.checkbox_4pack)
     CheckBox checkbox_4pack;
 
-    @BindView(R.id.serial_imageview)
-    ImageView serial_imageview;
+    @BindView(R.id.btnPress)
+    RoundKornerLinearLayout btnPress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +93,7 @@ public class ProductDetailActivity extends UsbSerialActivity {
         ratingBar.setRating(Global.currentProduct.star);
         priceTextView.setText(Global.currentProduct.price);
 
-        serial_imageview.setOnClickListener(new View.OnClickListener() {
+        btnPress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendCommand(Global.currentProduct.section);
