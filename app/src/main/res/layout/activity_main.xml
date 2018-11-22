@@ -49,54 +49,67 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.8"
+            android:layout_weight="1.2"
             android:orientation="vertical"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="40dp">
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="30dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-                <CheckBox
-                    android:id="@+id/checkbox_clean"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:button="@drawable/checkbox_selector"
-                    android:text="Best Possible Clean"
-                    android:textColor="@color/drak_gray"
-                    android:textSize="25sp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-                <CheckBox
-                    android:id="@+id/checkbox_whiter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:button="@drawable/checkbox_selector"
-                    android:text="Whiter Smile"
-                    android:textColor="@color/drak_gray"
-                    android:textSize="25sp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-                <CheckBox
-                    android:id="@+id/checkbox_specialty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:button="@drawable/checkbox_selector"
-                    android:text="Specialty (Sensitivity Relief/Gum Health)"
-                    android:textColor="@color/drak_gray"
-                    android:textSize="25sp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <RelativeLayout
+                        android:id="@+id/btnBestClean"
+                        android:layout_width="@dimen/image_size"
+                        android:layout_height="@dimen/image_size"
+                        android:layout_marginBottom="30dp"
+                        android:gravity="center"
+                        android:background="@drawable/rounded_corner">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/best_possible_clean"
+                            android:padding="@dimen/border_width"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/btnWhiterSmile"
+                        android:layout_width="@dimen/image_size"
+                        android:layout_height="@dimen/image_size"
+                        android:gravity="center"
+                        android:background="@drawable/rounded_corner">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/whiter_smile"
+                            android:padding="@dimen/border_width"/>
+                    </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="50dp"
+                    android:gravity="center">
+                    <RelativeLayout
+                        android:id="@+id/btnSpeciality"
+                        android:layout_width="@dimen/image_size"
+                        android:layout_height="@dimen/image_size"
+                        android:gravity="center"
+                        android:background="@drawable/rounded_corner">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/specialty"
+                            android:padding="@dimen/border_width"/>
+                    </RelativeLayout>
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
@@ -127,54 +140,67 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.8"
+            android:layout_weight="1.2"
             android:orientation="vertical"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="40dp">
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="30dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-                <CheckBox
-                    android:id="@+id/checkbox_extra_soft"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:button="@drawable/checkbox_selector"
-                    android:text="Extra Soft"
-                    android:textColor="@color/drak_gray"
-                    android:textSize="25sp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-                <CheckBox
-                    android:id="@+id/checkbox_soft"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:button="@drawable/checkbox_selector"
-                    android:text="Soft"
-                    android:textColor="@color/drak_gray"
-                    android:textSize="25sp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-                <CheckBox
-                    android:id="@+id/checkbox_medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:button="@drawable/checkbox_selector"
-                    android:text="Medium"
-                    android:textColor="@color/drak_gray"
-                    android:textSize="25sp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <RelativeLayout
+                        android:id="@+id/btnExtraSoft"
+                        android:layout_width="@dimen/image_size"
+                        android:layout_height="@dimen/image_size"
+                        android:layout_marginBottom="30dp"
+                        android:gravity="center"
+                        android:background="@drawable/rounded_corner">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/extra_soft"
+                            android:padding="@dimen/border_width"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/btnSoft"
+                        android:layout_width="@dimen/image_size"
+                        android:layout_height="@dimen/image_size"
+                        android:gravity="center"
+                        android:background="@drawable/rounded_corner">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/soft"
+                            android:padding="@dimen/border_width"/>
+                    </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="50dp"
+                    android:gravity="center">
+                    <RelativeLayout
+                        android:id="@+id/btnMedium"
+                        android:layout_width="@dimen/image_size"
+                        android:layout_height="@dimen/image_size"
+                        android:gravity="center"
+                        android:background="@drawable/rounded_corner">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/medium"
+                            android:padding="@dimen/border_width"/>
+                    </RelativeLayout>
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
@@ -206,47 +232,49 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.8"
+            android:layout_weight="1.2"
             android:orientation="vertical"
             android:layout_marginTop="60dp"
-            android:layout_marginBottom="60dp">
+            android:layout_marginBottom="60dp"
+            android:layout_marginLeft="30dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1">
-                <CheckBox
-                    android:id="@+id/checkbox_colgate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginBottom="30dp">
+                <RelativeLayout
+                    android:id="@+id/btnColgate"
+                    android:layout_width="298dp"
+                    android:layout_height="92dp"
                     android:gravity="center"
-                    android:button="@drawable/checkbox_selector"
-                    android:textColor="@color/drak_gray"
-                    android:textSize="25sp"/>
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/colgate"
-                    android:scaleType="fitXY"/>
+                    android:background="@drawable/rounded_corner">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/colgate"
+                        android:scaleType="fitXY"
+                        android:padding="@dimen/border_width"/>
+                </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1">
-                <CheckBox
-                    android:id="@+id/checkbox_oral"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <RelativeLayout
+                    android:id="@+id/btnOral"
+                    android:layout_width="220dp"
+                    android:layout_height="92dp"
                     android:gravity="center"
-                    android:button="@drawable/checkbox_selector"
-                    android:textColor="@color/drak_gray"
-                    android:textSize="25sp"/>
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/oral"
-                    android:scaleType="fitXY"/>
+                    android:background="@drawable/rounded_corner">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/oral"
+                        android:scaleType="fitXY"
+                        android:padding="@dimen/border_width"/>
+                </RelativeLayout>
             </LinearLayout>
 
         </LinearLayout>

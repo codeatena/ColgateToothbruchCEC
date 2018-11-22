@@ -1,21 +1,27 @@
 package com.general.mediaplayer.colgatetoothbruchcec.model;
 
+import android.widget.RelativeLayout;
+
+import com.general.mediaplayer.colgatetoothbruchcec.R;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
 
 public class Global {
 
     static public ProductModel currentProduct;
     static public List<ProductModel> products = new ArrayList<>();
 
-    static public Boolean ischeckbox_clean = false;
-    static public Boolean ischeckbox_whiter = false;
-    static public Boolean ischeckbox_specialty = false;
-    static public Boolean ischeckbox_extra_soft = false;
-    static public Boolean ischeckbox_soft = false;
-    static public Boolean ischeckbox_medium = false;
-    static public Boolean ischeckbox_colgate = false;
-    static public Boolean ischeckbox_oral = false;
+    static public Boolean isBestClean = false;
+    static public Boolean isWhiterSmile = false;
+    static public Boolean isSpeciality = false;
+    static public Boolean isExtraSoft = false;
+    static public Boolean isSoft = false;
+    static public Boolean isMedium = false;
+    static public Boolean isColgate = false;
+    static public Boolean isOral = false;
 
     static public List<String> benefitFilter = new ArrayList<>();
     static public List<String> bristle_typeFilter = new ArrayList<>();

@@ -1,10 +1,10 @@
 package com.general.mediaplayer.colgatetoothbruchcec.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.general.mediaplayer.colgatetoothbruchcec.R;
@@ -24,29 +24,29 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
 
-    @BindView(R.id.checkbox_clean)
-    CheckBox checkbox_clean;
+    @BindView(R.id.btnBestClean)
+    RelativeLayout btnBestClean;
 
-    @BindView(R.id.checkbox_whiter)
-    CheckBox checkbox_whiter;
+    @BindView(R.id.btnWhiterSmile)
+    RelativeLayout btnWhiterSmile;
 
-    @BindView(R.id.checkbox_specialty)
-    CheckBox checkbox_specialty;
+    @BindView(R.id.btnSpeciality)
+    RelativeLayout btnSpeciality;
 
-    @BindView(R.id.checkbox_extra_soft)
-    CheckBox checkbox_extra_soft;
+    @BindView(R.id.btnExtraSoft)
+    RelativeLayout btnExtraSoft;
 
-    @BindView(R.id.checkbox_soft)
-    CheckBox checkbox_soft;
+    @BindView(R.id.btnSoft)
+    RelativeLayout btnSoft;
 
-    @BindView(R.id.checkbox_medium)
-    CheckBox checkbox_medium;
+    @BindView(R.id.btnMedium)
+    RelativeLayout btnMedium;
 
-    @BindView(R.id.checkbox_colgate)
-    CheckBox checkbox_colgate;
+    @BindView(R.id.btnColgate)
+    RelativeLayout btnColgate;
 
-    @BindView(R.id.checkbox_oral)
-    CheckBox checkbox_oral;
+    @BindView(R.id.btnOral)
+    RelativeLayout btnOral;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,80 +73,119 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initUI() {
-        checkbox_clean.setChecked(Global.ischeckbox_clean);
-        checkbox_whiter.setChecked(Global.ischeckbox_whiter);
-        checkbox_specialty.setChecked(Global.ischeckbox_specialty);
-        checkbox_extra_soft.setChecked(Global.ischeckbox_extra_soft);
-        checkbox_soft.setChecked(Global.ischeckbox_soft);
-        checkbox_medium.setChecked(Global.ischeckbox_medium);
-        checkbox_colgate.setChecked(Global.ischeckbox_colgate);
-        checkbox_oral.setChecked(Global.ischeckbox_oral);
+        if (Global.isBestClean) {
+            btnBestClean.setBackground(getResources().getDrawable(R.drawable.rounded_corner));
+        } else {
+            btnBestClean.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        if (Global.isWhiterSmile) {
+            btnWhiterSmile.setBackground(getResources().getDrawable(R.drawable.rounded_corner));
+        } else {
+            btnWhiterSmile.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        if (Global.isSpeciality) {
+            btnSpeciality.setBackground(getResources().getDrawable(R.drawable.rounded_corner));
+        } else {
+            btnSpeciality.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        if (Global.isExtraSoft) {
+            btnExtraSoft.setBackground(getResources().getDrawable(R.drawable.rounded_corner));
+        } else {
+            btnExtraSoft.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        if (Global.isSoft) {
+            btnSoft.setBackground(getResources().getDrawable(R.drawable.rounded_corner));
+        } else {
+            btnSoft.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        if (Global.isMedium) {
+            btnMedium.setBackground(getResources().getDrawable(R.drawable.rounded_corner));
+        } else {
+            btnMedium.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        if (Global.isColgate) {
+            btnColgate.setBackground(getResources().getDrawable(R.drawable.rounded_corner));
+        } else {
+            btnColgate.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        if (Global.isOral) {
+            btnOral.setBackground(getResources().getDrawable(R.drawable.rounded_corner));
+        } else {
+            btnOral.setBackgroundColor(Color.TRANSPARENT);
+        }
     }
 
     private void setEventsHandler() {
-        checkbox_clean.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                                      @Override
-                                                      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                          Global.ischeckbox_clean = isChecked;
-                                                      }
-                                                  }
-        );
+        btnBestClean.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Global.isBestClean = !Global.isBestClean;
+                initUI();
+            }
+        });
 
-        checkbox_whiter.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                                       @Override
-                                                       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                           Global.ischeckbox_whiter = isChecked;
-                                                       }
-                                                   }
-        );
+        btnWhiterSmile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Global.isWhiterSmile = !Global.isWhiterSmile;
+                initUI();
+            }
+        });
 
-        checkbox_specialty.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                                          @Override
-                                                          public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                              Global.ischeckbox_specialty = isChecked;
-                                                          }
-                                                      }
-        );
+        btnSpeciality.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Global.isSpeciality = !Global.isSpeciality;
+                initUI();
+            }
+        });
 
-        checkbox_extra_soft.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                                           @Override
-                                                           public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                               Global.ischeckbox_extra_soft = isChecked;
-                                                           }
-                                                       }
-        );
+        btnExtraSoft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Global.isExtraSoft = !Global.isExtraSoft;
+                initUI();
+            }
+        });
 
-        checkbox_soft.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                                     @Override
-                                                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                         Global.ischeckbox_soft = isChecked;
-                                                     }
-                                                 }
-        );
+        btnSoft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Global.isSoft = !Global.isSoft;
+                initUI();
+            }
+        });
 
-        checkbox_medium.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                                       @Override
-                                                       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                           Global.ischeckbox_medium = isChecked;
-                                                       }
-                                                   }
-        );
+        btnMedium.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Global.isMedium = !Global.isMedium;
+                initUI();
+            }
+        });
 
-        checkbox_colgate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                                        @Override
-                                                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                            Global.ischeckbox_colgate = isChecked;
-                                                        }
-                                                    }
-        );
+        btnColgate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Global.isColgate = !Global.isColgate;
+                initUI();
+            }
+        });
 
-        checkbox_oral.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                                     @Override
-                                                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                         Global.ischeckbox_oral = isChecked;
-                                                     }
-                                                 }
-        );
+        btnOral.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Global.isOral = !Global.isOral;
+                initUI();
+            }
+        });
     }
 
     private void parseJson()
@@ -186,35 +225,35 @@ public class MainActivity extends BaseActivity {
         Global.bristle_typeFilter = new ArrayList<>();
         Global.brandFilter = new ArrayList<>();
 
-        if (Global.ischeckbox_clean) {
+        if (Global.isBestClean) {
             Global.benefitFilter.add("Best Possible Clean");
         }
 
-        if (Global.ischeckbox_whiter) {
+        if (Global.isWhiterSmile) {
             Global.benefitFilter.add("Whiter Smile");
         }
 
-        if (Global.ischeckbox_specialty) {
+        if (Global.isSpeciality) {
             Global.benefitFilter.add("Specialty");
         }
 
-        if (Global.ischeckbox_extra_soft) {
+        if (Global.isExtraSoft) {
             Global.bristle_typeFilter.add("Extra Soft");
         }
 
-        if (Global.ischeckbox_soft) {
+        if (Global.isSoft) {
             Global.bristle_typeFilter.add("Soft");
         }
 
-        if (Global.ischeckbox_medium) {
+        if (Global.isMedium) {
             Global.bristle_typeFilter.add("Medium");
         }
 
-        if (Global.ischeckbox_colgate) {
+        if (Global.isColgate) {
             Global.brandFilter.add("Colgate");
         }
 
-        if (Global.ischeckbox_oral) {
+        if (Global.isOral) {
             Global.brandFilter.add("Oral-B");
         }
 
