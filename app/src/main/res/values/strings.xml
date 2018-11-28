@@ -9,4 +9,8 @@
 
     <string name="alert_find_brash">Please find the brush that is right for you.</string>
 
+    <string name="string_press">PRESS HERE</string>
+    <string name="string_find_brush">TO FIND\nYOUR BRUSH</string>
+    <string name="string_return">RETURN</string>
+    <string name="string_main_menu">TO MAIN MENU</string>
 </resources>
