@@ -6,12 +6,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
 import com.general.mediaplayer.colgatetoothbruchcec.R;
+import com.general.mediaplayer.colgatetoothbruchcec.model.Global;
+import com.general.mediaplayer.colgatetoothbruchcec.model.ProductModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,6 +58,38 @@ public class LoopingActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
     }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        String upc_Code = event.getCharacters();
+        compareUPCCode(upc_Code);
+        return false;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.i("TAG", ""+ keyCode);
+        Log.d("TAG", event.getCharacters());
+        Log.d("TAG", "" + event.getUnicodeChar());
+//        String upc_Code = String.valueOf(keyCode);
+//        compareUPCCode(upc_Code);
+        String upc_Code = event.getCharacters();
+        compareUPCCode(upc_Code);
+        return true;
+    }
+
+    public void compareUPCCode(String upc_Code) {
+        if (upc_Code != null && !upc_Code.isEmpty()) {
+            for (ProductModel productModel : Global.products) {
+                if (productModel.upc_code.equals(upc_Code)) {
+                    Global.currentProduct = productModel;
+                    Intent intent = new Intent(LoopingActivity.this ,ProductDetailActivity.class);
+                    startActivity(intent);
+                }
+            }
+        }
+    }
+
 
     @Override
     protected void onResume(){

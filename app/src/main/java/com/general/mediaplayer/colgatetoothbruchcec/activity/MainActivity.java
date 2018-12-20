@@ -3,6 +3,8 @@ package com.general.mediaplayer.colgatetoothbruchcec.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -60,6 +62,37 @@ public class MainActivity extends BaseActivity {
         initUI();
 
         setEventsHandler();
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        String upc_Code = event.getCharacters();
+        compareUPCCode(upc_Code);
+        return false;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.i("TAG", ""+ keyCode);
+        Log.d("TAG", event.getCharacters());
+        Log.d("TAG", "" + event.getUnicodeChar());
+//        String upc_Code = String.valueOf(keyCode);
+//        compareUPCCode(upc_Code);
+        String upc_Code = event.getCharacters();
+        compareUPCCode(upc_Code);
+        return true;
+    }
+
+    public void compareUPCCode(String upc_Code) {
+        if (upc_Code != null && !upc_Code.isEmpty()) {
+            for (ProductModel productModel : Global.products) {
+                if (productModel.upc_code.equals(upc_Code)) {
+                    Global.currentProduct = productModel;
+                    Intent intent = new Intent(MainActivity.this ,ProductDetailActivity.class);
+                    startActivity(intent);
+                }
+            }
+        }
     }
 
     public void onSubmit(View view){

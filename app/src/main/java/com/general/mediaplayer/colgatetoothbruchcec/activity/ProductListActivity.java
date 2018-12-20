@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -66,6 +67,37 @@ public class ProductListActivity extends BaseActivity {
         popupInit();
     }
 
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        String upc_Code = event.getCharacters();
+        compareUPCCode(upc_Code);
+        return false;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.i("TAG", ""+ keyCode);
+        Log.d("TAG", event.getCharacters());
+        Log.d("TAG", "" + event.getUnicodeChar());
+//        String upc_Code = String.valueOf(keyCode);
+//        compareUPCCode(upc_Code);
+        String upc_Code = event.getCharacters();
+        compareUPCCode(upc_Code);
+        return true;
+    }
+
+    public void compareUPCCode(String upc_Code) {
+        if (upc_Code != null && !upc_Code.isEmpty()) {
+            for (ProductModel productModel : Global.products) {
+                if (productModel.upc_code.equals(upc_Code)) {
+                    Global.currentProduct = productModel;
+                    Intent intent = new Intent(ProductListActivity.this ,ProductDetailActivity.class);
+                    startActivity(intent);
+                }
+            }
+        }
+    }
+
     private void recyclerInit(){
 
         productRecyclerView.setHasFixedSize(true);
@@ -95,7 +127,6 @@ public class ProductListActivity extends BaseActivity {
                 Global.currentProduct = productModel;
                 Intent intent = new Intent(ProductListActivity.this ,ProductDetailActivity.class);
                 startActivity(intent);
-
             }
         });
 
