@@ -3,9 +3,12 @@ package com.general.mediaplayer.colgatetoothbruchcec.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -50,12 +53,19 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.btnOral)
     RelativeLayout btnOral;
 
+    @BindView(R.id.dataField)
+    EditText dataField;
+
+    private StringBuffer stringBuffer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+
+        stringBuffer = new StringBuffer();
 
         parseJson();
 
@@ -64,24 +74,24 @@ public class MainActivity extends BaseActivity {
         setEventsHandler();
     }
 
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        String upc_Code = event.getCharacters();
-        compareUPCCode(upc_Code);
-        return false;
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Log.i("TAG", ""+ keyCode);
-        Log.d("TAG", event.getCharacters());
-        Log.d("TAG", "" + event.getUnicodeChar());
-//        String upc_Code = String.valueOf(keyCode);
+//    @Override
+//    public boolean dispatchKeyEvent(KeyEvent event) {
+//        String upc_Code = event.getCharacters();
 //        compareUPCCode(upc_Code);
-        String upc_Code = event.getCharacters();
-        compareUPCCode(upc_Code);
-        return true;
-    }
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        Log.i("TAG", ""+ keyCode);
+//        Log.d("TAG", event.getCharacters());
+//        Log.d("TAG", "" + event.getUnicodeChar());
+////        String upc_Code = String.valueOf(keyCode);
+////        compareUPCCode(upc_Code);
+//        String upc_Code = event.getCharacters();
+//        compareUPCCode(upc_Code);
+//        return true;
+//    }
 
     public void compareUPCCode(String upc_Code) {
         if (upc_Code != null && !upc_Code.isEmpty()) {
@@ -219,7 +229,29 @@ public class MainActivity extends BaseActivity {
                 initUI();
             }
         });
+
+        dataField.addTextChangedListener(editTextWatcher);
+        Log.d("StringBuffer", stringBuffer.toString());
     }
+
+    TextWatcher editTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            Log.d("--Before scan barcode-", String.valueOf(s));
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            stringBuffer.append(s);
+            Log.d("----On Scan barcode---", String.valueOf(s));
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            Log.d("----Scanned barcode---", String.valueOf(s));
+            Log.d("StringBuffer", stringBuffer.toString());
+        }
+    };
 
     private void parseJson()
     {

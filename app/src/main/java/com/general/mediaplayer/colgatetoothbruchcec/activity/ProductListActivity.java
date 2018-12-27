@@ -67,25 +67,6 @@ public class ProductListActivity extends BaseActivity {
         popupInit();
     }
 
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        String upc_Code = event.getCharacters();
-        compareUPCCode(upc_Code);
-        return false;
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Log.i("TAG", ""+ keyCode);
-        Log.d("TAG", event.getCharacters());
-        Log.d("TAG", "" + event.getUnicodeChar());
-//        String upc_Code = String.valueOf(keyCode);
-//        compareUPCCode(upc_Code);
-        String upc_Code = event.getCharacters();
-        compareUPCCode(upc_Code);
-        return true;
-    }
-
     public void compareUPCCode(String upc_Code) {
         if (upc_Code != null && !upc_Code.isEmpty()) {
             for (ProductModel productModel : Global.products) {
