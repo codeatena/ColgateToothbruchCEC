@@ -56,16 +56,12 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.dataField)
     EditText dataField;
 
-    private StringBuffer stringBuffer;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-
-        stringBuffer = new StringBuffer();
 
         parseJson();
 
@@ -231,7 +227,6 @@ public class MainActivity extends BaseActivity {
         });
 
         dataField.addTextChangedListener(editTextWatcher);
-        Log.d("StringBuffer", stringBuffer.toString());
     }
 
     TextWatcher editTextWatcher = new TextWatcher() {
@@ -242,14 +237,13 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            stringBuffer.append(s);
             Log.d("----On Scan barcode---", String.valueOf(s));
         }
 
         @Override
         public void afterTextChanged(Editable s) {
             Log.d("----Scanned barcode---", String.valueOf(s));
-            Log.d("StringBuffer", stringBuffer.toString());
+            compareUPCCode(String.valueOf(s));
         }
     };
 
