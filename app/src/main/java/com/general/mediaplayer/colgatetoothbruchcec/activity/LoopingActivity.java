@@ -20,7 +20,7 @@ import com.general.mediaplayer.colgatetoothbruchcec.model.ProductModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoopingActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoopingActivity extends UsbSerialActivity implements View.OnClickListener{
 
 
     ScalableVideoView videoView;
@@ -58,19 +58,6 @@ public class LoopingActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
     }
-
-    public void compareUPCCode(String upc_Code) {
-        if (upc_Code != null && !upc_Code.isEmpty()) {
-            for (ProductModel productModel : Global.products) {
-                if (productModel.upc_code.equals(upc_Code)) {
-                    Global.currentProduct = productModel;
-                    Intent intent = new Intent(LoopingActivity.this ,ProductDetailActivity.class);
-                    startActivity(intent);
-                }
-            }
-        }
-    }
-
 
     @Override
     protected void onResume(){

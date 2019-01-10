@@ -29,7 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import mehdi.sakout.fancybuttons.FancyButton;
 
-public class ProductListActivity extends BaseActivity {
+public class ProductListActivity extends UsbSerialActivity {
 
     @BindView(R.id.product_recycler)
     RecyclerView productRecyclerView;
@@ -65,18 +65,6 @@ public class ProductListActivity extends BaseActivity {
         sortProduct("");
 
         popupInit();
-    }
-
-    public void compareUPCCode(String upc_Code) {
-        if (upc_Code != null && !upc_Code.isEmpty()) {
-            for (ProductModel productModel : Global.products) {
-                if (productModel.upc_code.equals(upc_Code)) {
-                    Global.currentProduct = productModel;
-                    Intent intent = new Intent(ProductListActivity.this ,ProductDetailActivity.class);
-                    startActivity(intent);
-                }
-            }
-        }
     }
 
     private void recyclerInit(){

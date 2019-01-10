@@ -71,16 +71,16 @@ public class ProductDetailActivity extends UsbSerialActivity {
         initialize();
     }
 
-    public void compareUPCCode(String upc_Code) {
-        if (upc_Code != null && !upc_Code.isEmpty()) {
-            for (ProductModel productModel : Global.products) {
-                if (productModel.upc_code.equals(upc_Code)) {
-                    Global.currentProduct = productModel;
-                    initialize();
-                }
-            }
-        }
-    }
+//    public void compareUPCCode(String upc_Code) {
+//        if (upc_Code != null && !upc_Code.isEmpty()) {
+//            for (ProductModel productModel : Global.products) {
+//                if (productModel.upc_code.equals(upc_Code)) {
+//                    Global.currentProduct = productModel;
+//                    initialize();
+//                }
+//            }
+//        }
+//    }
 
     private void initialize(){
 

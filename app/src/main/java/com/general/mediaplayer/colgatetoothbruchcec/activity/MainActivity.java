@@ -3,6 +3,7 @@ package com.general.mediaplayer.colgatetoothbruchcec.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.general.mediaplayer.colgatetoothbruchcec.R;
 import com.general.mediaplayer.colgatetoothbruchcec.model.Global;
 import com.general.mediaplayer.colgatetoothbruchcec.model.ProductModel;
+import com.hoho.android.usbserial.util.SerialInputOutputManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends UsbSerialActivity {
 
     @BindView(R.id.btnBestClean)
     RelativeLayout btnBestClean;
@@ -53,9 +55,6 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.btnOral)
     RelativeLayout btnOral;
 
-    @BindView(R.id.dataField)
-    EditText dataField;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,37 +67,6 @@ public class MainActivity extends BaseActivity {
         initUI();
 
         setEventsHandler();
-    }
-
-//    @Override
-//    public boolean dispatchKeyEvent(KeyEvent event) {
-//        String upc_Code = event.getCharacters();
-//        compareUPCCode(upc_Code);
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        Log.i("TAG", ""+ keyCode);
-//        Log.d("TAG", event.getCharacters());
-//        Log.d("TAG", "" + event.getUnicodeChar());
-////        String upc_Code = String.valueOf(keyCode);
-////        compareUPCCode(upc_Code);
-//        String upc_Code = event.getCharacters();
-//        compareUPCCode(upc_Code);
-//        return true;
-//    }
-
-    public void compareUPCCode(String upc_Code) {
-        if (upc_Code != null && !upc_Code.isEmpty()) {
-            for (ProductModel productModel : Global.products) {
-                if (productModel.upc_code.equals(upc_Code)) {
-                    Global.currentProduct = productModel;
-                    Intent intent = new Intent(MainActivity.this ,ProductDetailActivity.class);
-                    startActivity(intent);
-                }
-            }
-        }
     }
 
     public void onSubmit(View view){
@@ -226,26 +194,7 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        dataField.addTextChangedListener(editTextWatcher);
     }
-
-    TextWatcher editTextWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            Log.d("--Before scan barcode-", String.valueOf(s));
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            Log.d("----On Scan barcode---", String.valueOf(s));
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            Log.d("----Scanned barcode---", String.valueOf(s));
-            compareUPCCode(String.valueOf(s));
-        }
-    };
 
     private void parseJson()
     {

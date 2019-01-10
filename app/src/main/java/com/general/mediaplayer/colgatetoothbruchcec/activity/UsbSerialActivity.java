@@ -11,6 +11,8 @@ import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.general.mediaplayer.colgatetoothbruchcec.model.Global;
+import com.general.mediaplayer.colgatetoothbruchcec.model.ProductModel;
 import com.hoho.android.usbserial.driver.CdcAcmSerialDriver;
 import com.hoho.android.usbserial.driver.FtdiSerialDriver;
 import com.hoho.android.usbserial.driver.ProbeTable;
@@ -18,11 +20,15 @@ import com.hoho.android.usbserial.driver.ProlificSerialDriver;
 import com.hoho.android.usbserial.driver.UsbSerialDriver;
 import com.hoho.android.usbserial.driver.UsbSerialPort;
 import com.hoho.android.usbserial.driver.UsbSerialProber;
+import com.hoho.android.usbserial.util.HexDump;
+import com.hoho.android.usbserial.util.SerialInputOutputManager;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class UsbSerialActivity extends BaseActivity {
 
@@ -35,6 +41,67 @@ public class UsbSerialActivity extends BaseActivity {
     PendingIntent mPermissionIntent;
 
     private boolean isAsked = false;
+    private SerialInputOutputManager mSerialIoManager;
+    private final ExecutorService mExecutor = Executors.newSingleThreadExecutor();
+
+    private final SerialInputOutputManager.Listener mListener =
+            new SerialInputOutputManager.Listener() {
+
+                @Override
+                public void onRunError(Exception e) {
+                    Log.d(TAG, "Runner stopped.");
+                }
+
+                @Override
+                public void onNewData(final byte[] data) {
+                    UsbSerialActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            UsbSerialActivity.this.updateReceivedData(data);
+                        }
+                    });
+                }
+            };
+
+    private void updateReceivedData(byte[] data) {
+        final String message = "Read " + data.length + " bytes: \n"
+                + HexDump.dumpHexString(data) + "\n\n";
+        Log.d(TAG, message);
+        compareUPCCode(message);
+    }
+
+    public void compareUPCCode(String upc_Code) {
+        if (upc_Code != null && !upc_Code.isEmpty()) {
+            for (ProductModel productModel : Global.products) {
+                if (productModel.upc_code.equals(upc_Code)) {
+                    Global.currentProduct = productModel;
+                    Intent intent = new Intent(UsbSerialActivity.this ,ProductDetailActivity.class);
+                    startActivity(intent);
+                }
+            }
+        }
+    }
+
+    private void stopIoManager() {
+        if (mSerialIoManager != null) {
+            Log.i(TAG, "Stopping io manager ..");
+            mSerialIoManager.stop();
+            mSerialIoManager = null;
+        }
+    }
+
+    private void startIoManager() {
+        if (sPort != null) {
+            Log.i(TAG, "Starting io manager ..");
+            mSerialIoManager = new SerialInputOutputManager(sPort, mListener);
+            mExecutor.submit(mSerialIoManager);
+        }
+    }
+
+    private void onDeviceStateChange() {
+        stopIoManager();
+        startIoManager();
+    }
 
     public final BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
         @Override
@@ -101,6 +168,8 @@ public class UsbSerialActivity extends BaseActivity {
                 }
             }
         }
+
+        onDeviceStateChange();
     }
 
     @Override
