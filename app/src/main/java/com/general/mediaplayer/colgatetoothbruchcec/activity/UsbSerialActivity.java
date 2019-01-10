@@ -10,6 +10,7 @@ import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.general.mediaplayer.colgatetoothbruchcec.model.Global;
 import com.general.mediaplayer.colgatetoothbruchcec.model.ProductModel;
@@ -24,6 +25,7 @@ import com.hoho.android.usbserial.util.HexDump;
 import com.hoho.android.usbserial.util.SerialInputOutputManager;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -67,7 +69,13 @@ public class UsbSerialActivity extends BaseActivity {
         final String message = "Read " + data.length + " bytes: \n"
                 + HexDump.dumpHexString(data) + "\n\n";
         Log.d(TAG, message);
-        compareUPCCode(message);
+        try {
+            String upc_code = new String(data, "UTF-8");
+            compareUPCCode(upc_code);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            Log.d(TAG, e.toString());
+        }
     }
 
     public void compareUPCCode(String upc_Code) {
@@ -190,7 +198,7 @@ public class UsbSerialActivity extends BaseActivity {
     {
         try {
             sPort.open(connection);
-            sPort.setParameters(115200, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
+            sPort.setParameters(9600, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
             sPort.setDTR(true);
             sPort.setRTS(true);
 
