@@ -22,6 +22,8 @@
         <activity android:name=".activity.ProductDetailActivity" android:screenOrientation="portrait">
         </activity>
         <activity android:name=".activity.LoopingActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.BaseActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.UsbSerialActivity" android:screenOrientation="portrait"/>
 
     </application>
 
