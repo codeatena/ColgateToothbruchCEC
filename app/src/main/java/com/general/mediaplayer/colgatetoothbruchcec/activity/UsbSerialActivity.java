@@ -10,7 +10,6 @@ import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.general.mediaplayer.colgatetoothbruchcec.model.Global;
 import com.general.mediaplayer.colgatetoothbruchcec.model.ProductModel;
@@ -36,13 +35,14 @@ public class UsbSerialActivity extends BaseActivity {
 
 
     private final String TAG = UsbSerialActivity.class.getSimpleName();
+    private final static String ArdunioName = "";
+    private final static String ScannerName = "";
     private static final String ACTION_USB_PERMISSION = "com.examples.accessory.controller.action.USB_PERMISSION";
 
-    UsbSerialPort sPort1;
-    UsbSerialPort sPort2;
-    UsbDeviceConnection connection1;
-    UsbDeviceConnection connection2;
+    UsbSerialPort sPort;
+    UsbDeviceConnection connection;
     PendingIntent mPermissionIntent;
+    String deviceName;
 
     private boolean isAsked = false;
     private SerialInputOutputManager mSerialIoManager;
@@ -72,8 +72,10 @@ public class UsbSerialActivity extends BaseActivity {
                 + HexDump.dumpHexString(data) + "\n\n";
         Log.d(TAG, message);
         try {
-            String upc_code = new String(data, "UTF-8");
-            compareUPCCode(upc_code);
+            if (deviceName.equals(ScannerName)) {
+                String upc_code = new String(data, "UTF-8");
+                compareUPCCode(upc_code);
+            }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             Log.d(TAG, e.toString());
@@ -101,9 +103,9 @@ public class UsbSerialActivity extends BaseActivity {
     }
 
     private void startIoManager() {
-        if (sPort2 != null) {
+        if (sPort != null) {
             Log.i(TAG, "Starting io manager ..");
-            mSerialIoManager = new SerialInputOutputManager(sPort2, mListener);
+            mSerialIoManager = new SerialInputOutputManager(sPort, mListener);
             mExecutor.submit(mSerialIoManager);
         }
     }
@@ -122,14 +124,9 @@ public class UsbSerialActivity extends BaseActivity {
                 synchronized (this) {
 
                     final UsbManager usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
-                    if (connection1 == null) {
-                        connection1 = usbManager.openDevice(sPort1.getDriver().getDevice());
-                        openConnection(connection1);
-                    }
-
-                    if (connection2 == null) {
-                        connection2 = usbManager.openDevice(sPort2.getDriver().getDevice());
-                        openConnection(connection2);
+                    if (connection == null) {
+                        connection = usbManager.openDevice(sPort.getDriver().getDevice());
+                        openConnection(connection);
                     }
                 }
             }
@@ -154,45 +151,32 @@ public class UsbSerialActivity extends BaseActivity {
 
         // Open a connection to the first available driver.
         UsbSerialDriver driver = availableDrivers.get(0);
-        sPort1 = driver.getPorts().get(0);
-        sPort2 = driver.getPorts().get(1);
+        sPort = driver.getPorts().get(0);
+        deviceName = driver.getDevice().getDeviceName();
+        Log.d(TAG, deviceName);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (sPort1 != null) {
+        if (sPort != null) {
             final UsbManager usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
-            if (usbManager.hasPermission(sPort1.getDriver().getDevice())){
+            if (usbManager.hasPermission(sPort.getDriver().getDevice())){
 
-                if (connection1 == null) {
-                    connection1 = usbManager.openDevice(sPort1.getDriver().getDevice());
-                    openConnection(connection1);
+                if (connection == null) {
+                    connection = usbManager.openDevice(sPort.getDriver().getDevice());
+                    openConnection(connection);
                 }
             } else{
-                if (!isAsked &&  connection1 == null) {
+                if (!isAsked &&  connection == null) {
                     isAsked = true;
-                    usbManager.requestPermission(sPort1.getDriver().getDevice(), mPermissionIntent);
-                }
-            }
-        }
-
-        if (sPort2 != null) {
-            final UsbManager usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
-            if (usbManager.hasPermission(sPort2.getDriver().getDevice())){
-
-                if (connection2 == null) {
-                    connection2 = usbManager.openDevice(sPort2.getDriver().getDevice());
-                    openConnection(connection2);
-                }
-            } else{
-                if (!isAsked &&  connection2 == null) {
-                    isAsked = true;
-                    usbManager.requestPermission(sPort2.getDriver().getDevice(), mPermissionIntent);
+                    usbManager.requestPermission(sPort.getDriver().getDevice(), mPermissionIntent);
                 }
             }
 
-            onDeviceStateChange();
+            if (deviceName.equals(ScannerName)) {
+                onDeviceStateChange();
+            }
         }
     }
 
@@ -212,33 +196,28 @@ public class UsbSerialActivity extends BaseActivity {
     private void openConnection(UsbDeviceConnection connection)
     {
         try {
-            sPort1.open(connection);
-            sPort1.setParameters(115200, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
-            sPort1.setDTR(true);
-            sPort1.setRTS(true);
-
-            sPort2.open(connection);
-            sPort2.setParameters(9600, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
-            sPort2.setDTR(true);
-            sPort2.setRTS(true);
+            sPort.open(connection);
+            sPort.setParameters(9600, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
+            sPort.setDTR(true);
+            sPort.setRTS(true);
         } catch (IOException e) {
             Log.e(TAG, "Error setting up device: " + e.getMessage(), e);
             try {
-                sPort1.close();
-                sPort2.close();
+                sPort.close();
             } catch (IOException e2) {
                 // Ignore.
             }
-            sPort1 = null;
-            sPort2 = null;
+            sPort = null;
         }
     }
 
     public void sendCommand(String str) {
-        if (sPort1 != null) {
+        if (sPort != null) {
             try {
-                byte response[] = str.getBytes();
-                sPort1.write(response, 200);
+                if (deviceName.equals(ArdunioName)) {
+                    byte response[] = str.getBytes();
+                    sPort.write(response, 200);
+                }
             } catch (IOException e) {
                 Log.e(TAG, "write error: " + e.getMessage());
             }
@@ -262,8 +241,6 @@ public class UsbSerialActivity extends BaseActivity {
                 customTable.addProduct(device.getVendorId(), device.getProductId(), FtdiSerialDriver.class);
             else if(name.contains("prolific"))
                 customTable.addProduct(device.getVendorId(), device.getProductId(), ProlificSerialDriver.class);
-
-
         }
         return customTable;
     }
