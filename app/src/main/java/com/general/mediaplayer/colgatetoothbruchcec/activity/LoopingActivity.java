@@ -20,7 +20,7 @@ import com.general.mediaplayer.colgatetoothbruchcec.model.ProductModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoopingActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoopingActivity extends UsbSerialActivity implements View.OnClickListener{
 
 
     ScalableVideoView videoView;
@@ -44,7 +44,7 @@ public class LoopingActivity extends AppCompatActivity implements View.OnClickLi
         rightbottomBtn.setOnClickListener(this);
 
         videoView =  findViewById(R.id.videoView);
-        videoView.setDisplayMode(ScalableVideoView.DisplayMode.ORIGINAL);
+        videoView.setDisplayMode(ScalableVideoView.DisplayMode.FULL_SCREEN);
         videoView.setVisibility(View.VISIBLE);
         if (videoView.isPlaying()) {
             videoView.stopPlayback();
