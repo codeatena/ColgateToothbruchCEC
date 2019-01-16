@@ -126,6 +126,8 @@ public class ProductDetailActivity extends UsbSerialActivity {
 
     public void onBack(View view) {
         sendCommand(String.valueOf(0));
+        Intent intent = new Intent(this ,ProductListActivity.class);
+        startActivity(intent);
         finish();
     }
 
