@@ -35,14 +35,11 @@ public class UsbSerialActivity extends BaseActivity {
 
 
     private final String TAG = UsbSerialActivity.class.getSimpleName();
-    private final static String ArdunioName = "";
-    private final static String ScannerName = "";
     private static final String ACTION_USB_PERMISSION = "com.examples.accessory.controller.action.USB_PERMISSION";
 
     UsbSerialPort sPort;
     UsbDeviceConnection connection;
     PendingIntent mPermissionIntent;
-    String deviceName;
 
     private boolean isAsked = false;
     private SerialInputOutputManager mSerialIoManager;
@@ -70,12 +67,11 @@ public class UsbSerialActivity extends BaseActivity {
     private void updateReceivedData(byte[] data) {
         final String message = "Read " + data.length + " bytes: \n"
                 + HexDump.dumpHexString(data) + "\n\n";
-        Log.d(TAG, message);
+        Log.d("---HexString---", message);
         try {
-            if (deviceName.equals(ScannerName)) {
-                String upc_code = new String(data, "UTF-8");
-                compareUPCCode(upc_code);
-            }
+            String upc_code = new String(data, "UTF-8");
+            Log.d("---UPCCode---", upc_code);
+            compareUPCCode(upc_code);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             Log.d(TAG, e.toString());
@@ -152,8 +148,6 @@ public class UsbSerialActivity extends BaseActivity {
         // Open a connection to the first available driver.
         UsbSerialDriver driver = availableDrivers.get(0);
         sPort = driver.getPorts().get(0);
-        deviceName = driver.getDevice().getDeviceName();
-        Log.d(TAG, deviceName);
     }
 
     @Override
@@ -173,11 +167,9 @@ public class UsbSerialActivity extends BaseActivity {
                     usbManager.requestPermission(sPort.getDriver().getDevice(), mPermissionIntent);
                 }
             }
-
-            if (deviceName.equals(ScannerName)) {
-                onDeviceStateChange();
-            }
         }
+
+        onDeviceStateChange();
     }
 
     @Override
@@ -214,10 +206,8 @@ public class UsbSerialActivity extends BaseActivity {
     public void sendCommand(String str) {
         if (sPort != null) {
             try {
-                if (deviceName.equals(ArdunioName)) {
-                    byte response[] = str.getBytes();
-                    sPort.write(response, 200);
-                }
+                byte response[] = str.getBytes();
+                sPort.write(response, 200);
             } catch (IOException e) {
                 Log.e(TAG, "write error: " + e.getMessage());
             }
