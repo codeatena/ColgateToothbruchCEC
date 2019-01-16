@@ -71,7 +71,10 @@ public class UsbSerialActivity extends BaseActivity {
         try {
             String upc_code = new String(data, "UTF-8");
             Log.d("---UPCCode---", upc_code);
-            compareUPCCode(upc_code.replace("\r\n", ""));
+            String realCode = upc_code.replace("\r", "").replace("\n", "");
+            if (realCode.length() >= 2) {
+                compareUPCCode(realCode.substring(1, realCode.length() - 1 ));
+            }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             Log.d(TAG, e.toString());
@@ -82,6 +85,7 @@ public class UsbSerialActivity extends BaseActivity {
         if (upc_Code != null && !upc_Code.isEmpty()) {
             for (ProductModel productModel : Global.products) {
                 if (productModel.upc_code.equals(upc_Code)) {
+                    sendCommand(String.valueOf(0));
                     Global.currentProduct = productModel;
                     Intent intent = new Intent(UsbSerialActivity.this ,ProductDetailActivity.class);
                     startActivity(intent);
@@ -175,14 +179,14 @@ public class UsbSerialActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (sPort != null) {
-            try {
-                sPort.close();
-            } catch (IOException e) {
-                // Ignore.
-            }
-            sPort = null;
-        }
+//        if (sPort != null) {
+//            try {
+//                sPort.close();
+//            } catch (IOException e) {
+//                // Ignore.
+//            }
+//            sPort = null;
+//        }
     }
 
     private void openConnection(UsbDeviceConnection connection)
