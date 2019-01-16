@@ -71,7 +71,7 @@ public class UsbSerialActivity extends BaseActivity {
         try {
             String upc_code = new String(data, "UTF-8");
             Log.d("---UPCCode---", upc_code);
-            compareUPCCode(upc_code);
+            compareUPCCode(upc_code.replace("\r\n", ""));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             Log.d(TAG, e.toString());
@@ -175,21 +175,21 @@ public class UsbSerialActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-//        if (sPort != null) {
-//            try {
-//                sPort.close();
-//            } catch (IOException e) {
-//                // Ignore.
-//            }
-//            sPort = null;
-//        }
+        if (sPort != null) {
+            try {
+                sPort.close();
+            } catch (IOException e) {
+                // Ignore.
+            }
+            sPort = null;
+        }
     }
 
     private void openConnection(UsbDeviceConnection connection)
     {
         try {
             sPort.open(connection);
-            sPort.setParameters(9600, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
+            sPort.setParameters(115200, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
             sPort.setDTR(true);
             sPort.setRTS(true);
         } catch (IOException e) {

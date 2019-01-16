@@ -297,12 +297,13 @@ public class ProductListActivity extends UsbSerialActivity {
     }
 
     public void onBack(View view) {
-
+        sendCommand(String.valueOf(0));
         finish();
     }
 
     public void onHome(View view) {
 
+        sendCommand(String.valueOf(0));
         finish();
 
     }
