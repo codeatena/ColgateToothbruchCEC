@@ -3,20 +3,13 @@ package com.general.mediaplayer.colgatetoothbruchcec.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.general.mediaplayer.colgatetoothbruchcec.R;
 import com.general.mediaplayer.colgatetoothbruchcec.model.Global;
 import com.general.mediaplayer.colgatetoothbruchcec.model.ProductModel;
-import com.hoho.android.usbserial.util.SerialInputOutputManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

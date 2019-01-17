@@ -2,6 +2,7 @@ package com.general.mediaplayer.colgatetoothbruchcec.adaptor;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,17 +32,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductA
         this.context = context;
     }
 
+    @NonNull
     @Override
-    public ProductAdapterHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ProductAdapterHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // create a new view
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.product_item, parent, false);
-        ProductAdapterHolder holder = new ProductAdapterHolder(view);
-        return holder;
+        return new ProductAdapterHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ProductAdapterHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ProductAdapterHolder holder, int position) {
 
         if (position % 2 == 1){
             holder.parentView.setBackgroundColor(context.getResources().getColor(R.color.light_gray));
@@ -76,10 +77,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductA
         this.listener = listener;
     }
 
-    public void setProducts(List<ProductModel> products)
-    {
-        this.list = products;
-    }
+//    public void setProducts(List<ProductModel> products)
+////    {
+////        this.list = products;
+////    }
 
     public interface OnItemClickListener{
 
@@ -88,20 +89,20 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductA
 
     }
 
-    public class ProductAdapterHolder extends RecyclerView.ViewHolder {
+    class ProductAdapterHolder extends RecyclerView.ViewHolder {
 
-        public LinearLayout leftView;
-        public LinearLayout rightView;
-        public CardView parentView;
+        LinearLayout leftView;
+        LinearLayout rightView;
+        CardView parentView;
 
-        public ImageView productImageView;
-        public TextView nameTextView;
-        public TextView descriptionTextView;
-        public TextView priceTextView;
-        public ImageView colgateImageView;
-        public ColorRatingBar ratingBar;
+        ImageView productImageView;
+        TextView nameTextView;
+        TextView descriptionTextView;
+        TextView priceTextView;
+        ImageView colgateImageView;
+        ColorRatingBar ratingBar;
 
-        public ProductAdapterHolder(View v) {
+        ProductAdapterHolder(View v) {
             super(v);
 
             leftView = v.findViewById(R.id.left_view);
@@ -116,7 +117,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductA
             ratingBar = v.findViewById(R.id.rating_bar);
         }
 
-        public void bind(final ProductModel productModel ,final OnItemClickListener listener)
+        void bind(final ProductModel productModel, final OnItemClickListener listener)
         {
 
             leftView.setOnClickListener(new View.OnClickListener() {
@@ -137,21 +138,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductA
 
     static public Drawable loadDrawableFromAssets(Context context, String path)
     {
-        InputStream stream = null;
-        try
-        {
-            stream = context.getAssets().open(path);
+        try (InputStream stream = context.getAssets().open(path)) {
             return Drawable.createFromStream(stream, null);
-        }
-        catch (Exception ignored) {} finally
-        {
-            try
-            {
-                if(stream != null)
-                {
-                    stream.close();
-                }
-            } catch (Exception ignored) {}
+        } catch (Exception ignored) {
         }
         return null;
     }

@@ -189,6 +189,12 @@ public class UsbSerialActivity extends BaseActivity {
 //        }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mUsbReceiver);
+    }
+
     private void openConnection(UsbDeviceConnection connection)
     {
         try {

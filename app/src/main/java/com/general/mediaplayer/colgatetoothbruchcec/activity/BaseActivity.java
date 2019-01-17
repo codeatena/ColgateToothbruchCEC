@@ -37,7 +37,6 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent intent = new Intent(BaseActivity.this, LoopingActivity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         };

@@ -5,17 +5,12 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
 import com.general.mediaplayer.colgatetoothbruchcec.R;
-import com.general.mediaplayer.colgatetoothbruchcec.model.Global;
-import com.general.mediaplayer.colgatetoothbruchcec.model.ProductModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,6 +61,15 @@ public class LoopingActivity extends UsbSerialActivity implements View.OnClickLi
         sendCommand(String.valueOf(0));
         videoView.start();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+        super.onDestroy();
     }
 
     public void onFinish(View view)

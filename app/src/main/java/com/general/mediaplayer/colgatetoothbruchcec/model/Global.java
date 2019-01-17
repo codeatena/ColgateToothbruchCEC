@@ -1,13 +1,7 @@
 package com.general.mediaplayer.colgatetoothbruchcec.model;
 
-import android.widget.RelativeLayout;
-
-import com.general.mediaplayer.colgatetoothbruchcec.R;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
 
 public class Global {
 

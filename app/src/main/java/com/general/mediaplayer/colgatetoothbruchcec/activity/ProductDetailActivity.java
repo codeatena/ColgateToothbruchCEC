@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -14,7 +12,6 @@ import android.widget.TextView;
 import com.general.mediaplayer.colgatetoothbruchcec.R;
 import com.general.mediaplayer.colgatetoothbruchcec.adaptor.ProductAdapter;
 import com.general.mediaplayer.colgatetoothbruchcec.model.Global;
-import com.general.mediaplayer.colgatetoothbruchcec.model.ProductModel;
 import com.jcminarro.roundkornerlayout.RoundKornerLinearLayout;
 
 import butterknife.BindView;
