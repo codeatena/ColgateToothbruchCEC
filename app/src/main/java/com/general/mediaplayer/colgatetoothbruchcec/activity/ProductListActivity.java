@@ -64,10 +64,20 @@ public class ProductListActivity extends UsbSerialActivity {
         popupInit();
 
         if (Global.isNew) {
-            filteredProducts = new ArrayList<>();
             for (ProductModel product : Global.products) {
-                if (product.newproduct != null && product.newproduct.equals("New")) {
-                    filteredProducts.add(product);
+                if (product.newproduct.equals("New")) {
+                    boolean isSame = false;
+                    if (filteredProducts.size() != 0) {
+                        for (ProductModel productModel : filteredProducts) {
+                            if (productModel.productname.equals(product.productname)) {
+                                isSame = true;
+                            }
+                        }
+                    }
+                    
+                    if (!isSame) {
+                        filteredProducts.add(product);
+                    }
                 }
             }
             recyclerInit();
@@ -325,6 +335,9 @@ public class ProductListActivity extends UsbSerialActivity {
         Global.isColgate = false;
         Global.isOral = false;
         Global.isNew = false;
+        Intent intent = new Intent(this ,MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
         finish();
     }
 
