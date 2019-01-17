@@ -302,7 +302,7 @@
                 fancy:fb_radius="10dp"
                 android:layout_marginStart="50dp"
                 android:layout_centerVertical="true"
-                />
+                android:onClick="onWhatNew" />
 
             <mehdi.sakout.fancybuttons.FancyButton
                 android:layout_width="250dp"

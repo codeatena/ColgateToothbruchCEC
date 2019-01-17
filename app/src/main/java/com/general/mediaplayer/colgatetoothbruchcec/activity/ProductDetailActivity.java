@@ -144,6 +144,7 @@ public class ProductDetailActivity extends UsbSerialActivity {
         Global.isMedium = false;
         Global.isColgate = false;
         Global.isOral = false;
+        Global.isNew = false;
         Intent intent = new Intent(this ,MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

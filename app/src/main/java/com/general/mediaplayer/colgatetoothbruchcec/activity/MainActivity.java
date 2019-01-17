@@ -70,13 +70,19 @@ public class MainActivity extends UsbSerialActivity {
     }
 
     public void onSubmit(View view){
-
+        Global.isNew = false;
         if (checkFiltering()) {
             Intent intent = new Intent(this ,ProductListActivity.class);
             startActivity(intent);
         } else {
             Toast.makeText(MainActivity.this, getString(R.string.alert_find_brash), Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void onWhatNew(View view) {
+        Global.isNew = true;
+        Intent intent = new Intent(this ,ProductListActivity.class);
+        startActivity(intent);
     }
 
     private void initUI() {

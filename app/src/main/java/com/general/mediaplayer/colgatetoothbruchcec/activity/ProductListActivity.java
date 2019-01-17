@@ -61,9 +61,19 @@ public class ProductListActivity extends UsbSerialActivity {
 
         ButterKnife.bind(this);
 
-        sortProduct("");
-
         popupInit();
+
+        if (Global.isNew) {
+            filteredProducts = new ArrayList<>();
+            for (ProductModel product : Global.products) {
+                if (product.newproduct != null && product.newproduct.equals("New")) {
+                    filteredProducts.add(product);
+                }
+            }
+            recyclerInit();
+        } else {
+            sortProduct("");
+        }
     }
 
     private void recyclerInit(){
@@ -127,7 +137,11 @@ public class ProductListActivity extends UsbSerialActivity {
 
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                sortProduct(item.getTitle().toString());
+                if (Global.isNew) {
+                    getFilteredProducts(filteredProducts, item.getTitle().toString());
+                } else {
+                    sortProduct(item.getTitle().toString());
+                }
                 return true;
             }
         });
@@ -139,6 +153,11 @@ public class ProductListActivity extends UsbSerialActivity {
         List<ProductModel> bristle_products = addProduct(benefit_products, Global.bristle_typeFilter, "Bristle Type");
         List<ProductModel> products = addProduct(bristle_products, Global.brandFilter, "Brand");
 
+        getFilteredProducts(products, sortStr);
+    }
+
+    private void getFilteredProducts(List<ProductModel> products, String sortStr) {
+        filteredProducts = new ArrayList<>();
         if (products.size() != 0) {
             if (sortStr.equals(getString(R.string.price_low_high))) {
                 filteredProducts = sortByPriceFromLow(products);
@@ -305,6 +324,7 @@ public class ProductListActivity extends UsbSerialActivity {
         Global.isMedium = false;
         Global.isColgate = false;
         Global.isOral = false;
+        Global.isNew = false;
         finish();
     }
 
@@ -319,6 +339,7 @@ public class ProductListActivity extends UsbSerialActivity {
         Global.isMedium = false;
         Global.isColgate = false;
         Global.isOral = false;
+        Global.isNew = false;
         Intent intent = new Intent(this ,MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

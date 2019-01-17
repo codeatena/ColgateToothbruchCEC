@@ -16,6 +16,7 @@ public class Global {
     static public Boolean isMedium = false;
     static public Boolean isColgate = false;
     static public Boolean isOral = false;
+    static public Boolean isNew = false;
 
     static public List<String> benefitFilter = new ArrayList<>();
     static public List<String> bristle_typeFilter = new ArrayList<>();

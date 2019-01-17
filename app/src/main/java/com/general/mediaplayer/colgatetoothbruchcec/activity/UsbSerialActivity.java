@@ -84,7 +84,7 @@ public class UsbSerialActivity extends BaseActivity {
     public void compareUPCCode(String upc_Code) {
         if (upc_Code != null && !upc_Code.isEmpty()) {
             for (ProductModel productModel : Global.products) {
-                if (productModel.upc_code.equals(upc_Code)) {
+                if (productModel.upc_code1.equals(upc_Code) || productModel.upc_code2.equals(upc_Code)) {
                     sendCommand(String.valueOf(0));
                     Global.currentProduct = productModel;
                     Intent intent = new Intent(UsbSerialActivity.this ,ProductDetailActivity.class);

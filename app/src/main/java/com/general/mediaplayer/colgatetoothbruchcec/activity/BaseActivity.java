@@ -46,6 +46,7 @@ public class BaseActivity extends AppCompatActivity {
                 Global.isMedium = false;
                 Global.isColgate = false;
                 Global.isOral = false;
+                Global.isNew = false;
                 Intent intent = new Intent(BaseActivity.this, LoopingActivity.class);
                 startActivity(intent);
             }
