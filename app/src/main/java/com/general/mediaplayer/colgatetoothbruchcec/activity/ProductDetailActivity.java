@@ -106,6 +106,12 @@ public class ProductDetailActivity extends UsbSerialActivity {
         ratingBar.setRating(Global.currentProduct.star);
         priceTextView.setText(Global.currentProduct.price);
 
+        if (Global.currentProduct.brand.equals("Oral-B")) {
+            btnPress.setVisibility(View.INVISIBLE);
+        } else {
+            btnPress.setVisibility(View.VISIBLE);
+        }
+
         btnPress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
