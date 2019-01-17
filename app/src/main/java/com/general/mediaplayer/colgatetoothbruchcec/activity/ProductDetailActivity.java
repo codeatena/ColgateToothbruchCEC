@@ -139,6 +139,14 @@ public class ProductDetailActivity extends UsbSerialActivity {
 
     public void onHome(View view) {
         sendCommand(String.valueOf(0));
+        Global.isBestClean = false;
+        Global.isWhiterSmile = false;
+        Global.isSpeciality = false;
+        Global.isExtraSoft = false;
+        Global.isSoft = false;
+        Global.isMedium = false;
+        Global.isColgate = false;
+        Global.isOral = false;
         Intent intent = new Intent(this ,MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

@@ -69,6 +69,13 @@ public class MainActivity extends UsbSerialActivity {
         setEventsHandler();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        initUI();
+    }
+
     public void onSubmit(View view){
 
         if (checkFiltering()) {

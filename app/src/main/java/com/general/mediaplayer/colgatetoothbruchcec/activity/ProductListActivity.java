@@ -298,14 +298,29 @@ public class ProductListActivity extends UsbSerialActivity {
 
     public void onBack(View view) {
         sendCommand(String.valueOf(0));
+        Global.isBestClean = false;
+        Global.isWhiterSmile = false;
+        Global.isSpeciality = false;
+        Global.isExtraSoft = false;
+        Global.isSoft = false;
+        Global.isMedium = false;
+        Global.isColgate = false;
+        Global.isOral = false;
         finish();
     }
 
     public void onHome(View view) {
 
         sendCommand(String.valueOf(0));
+        Global.isBestClean = false;
+        Global.isWhiterSmile = false;
+        Global.isSpeciality = false;
+        Global.isExtraSoft = false;
+        Global.isSoft = false;
+        Global.isMedium = false;
+        Global.isColgate = false;
+        Global.isOral = false;
         finish();
-
     }
 
     public void onCancel(View view) {
