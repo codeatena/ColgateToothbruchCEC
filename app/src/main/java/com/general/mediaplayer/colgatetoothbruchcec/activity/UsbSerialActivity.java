@@ -96,6 +96,7 @@ public class UsbSerialActivity extends BaseActivity {
                     Global.currentProduct = productModel;
                     Intent intent = new Intent(UsbSerialActivity.this ,ProductDetailActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
             if (!isExisted) {
