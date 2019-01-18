@@ -1,18 +1,13 @@
 package com.general.mediaplayer.colgatetoothbruchcec.activity;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.general.mediaplayer.colgatetoothbruchcec.R;
 import com.general.mediaplayer.colgatetoothbruchcec.adaptor.ProductAdapter;
@@ -73,11 +68,26 @@ public class ProductDetailActivity extends UsbSerialActivity {
         initialize();
     }
 
-    private void initialize(){
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Global.isProductDetail = true;
+        mProductDetailContext = ProductDetailActivity.this;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Global.isProductDetail = false;
+        mProductDetailContext = null;
+    }
+
+    public void initialize(){
 
         Drawable drawable = ProductAdapter.loadDrawableFromAssets(this ,Global.currentProduct.product_image);
         thumbImageView.setImageDrawable(drawable);
 
+        isPressBtnClicked = false;
         txtPress.setText(getString(R.string.string_press));
         txtFindBrash.setText(getString(R.string.string_find_brush));
 

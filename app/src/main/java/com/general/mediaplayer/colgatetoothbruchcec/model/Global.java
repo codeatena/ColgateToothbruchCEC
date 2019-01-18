@@ -1,10 +1,5 @@
 package com.general.mediaplayer.colgatetoothbruchcec.model;
 
-import android.app.AlertDialog;
-import android.app.Application;
-import android.content.Context;
-import android.content.DialogInterface;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +17,10 @@ public class Global {
     static public Boolean isColgate = false;
     static public Boolean isOral = false;
     static public Boolean isNew = false;
+
+    static public String upc_Code = "";
+    static public Boolean isScanMode = false;
+    static public Boolean isProductDetail = false;
 
     static public List<String> benefitFilter = new ArrayList<>();
     static public List<String> bristle_typeFilter = new ArrayList<>();

@@ -1,21 +1,17 @@
 package com.general.mediaplayer.colgatetoothbruchcec.activity;
 
-import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.general.mediaplayer.colgatetoothbruchcec.R;
 import com.general.mediaplayer.colgatetoothbruchcec.model.Global;
 import com.general.mediaplayer.colgatetoothbruchcec.model.ProductModel;
 import com.hoho.android.usbserial.driver.CdcAcmSerialDriver;
@@ -25,11 +21,11 @@ import com.hoho.android.usbserial.driver.ProlificSerialDriver;
 import com.hoho.android.usbserial.driver.UsbSerialDriver;
 import com.hoho.android.usbserial.driver.UsbSerialPort;
 import com.hoho.android.usbserial.driver.UsbSerialProber;
-import com.hoho.android.usbserial.util.HexDump;
 import com.hoho.android.usbserial.util.SerialInputOutputManager;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -38,7 +34,7 @@ import java.util.concurrent.Executors;
 
 public class UsbSerialActivity extends BaseActivity {
 
-
+    public ProductDetailActivity mProductDetailContext = null;
     private final String TAG = UsbSerialActivity.class.getSimpleName();
     private static final String ACTION_USB_PERMISSION = "com.examples.accessory.controller.action.USB_PERMISSION";
 
@@ -56,7 +52,7 @@ public class UsbSerialActivity extends BaseActivity {
                 @Override
                 public void onRunError(Exception e) {
                     Log.d(TAG, "Runner stopped.");
-                    Toast.makeText(UsbSerialActivity.this, "Scanner stopped", Toast.LENGTH_LONG).show();
+                    Toast.makeText(UsbSerialActivity.this, "Scanner stopped", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -64,50 +60,48 @@ public class UsbSerialActivity extends BaseActivity {
                     UsbSerialActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            UsbSerialActivity.this.updateReceivedData(data);
+                            UsbSerialActivity.this.updateReceivedData(ByteBuffer.wrap(data));
                         }
                     });
                 }
             };
 
-    private void updateReceivedData(byte[] data) {
-        final String message = "Read " + data.length + " bytes: \n"
-                + HexDump.dumpHexString(data) + "\n\n";
-        Log.d("---HexString---", message);
-        try {
-            String upc_code = new String(data, "UTF-8");
-            Log.d("---UPCCode---", upc_code);
-            String realCode = upc_code.replace("\r", "").replace("\n", "");
-            if (realCode.length() >= 2) {
-                compareUPCCode(realCode.substring(1, realCode.length() - 1 ));
-            } else {
-                Toast.makeText(UsbSerialActivity.this, "There is no the product with scanned UPC code", Toast.LENGTH_LONG).show();
+    private void updateReceivedData(ByteBuffer buffer) {
+        String data = StandardCharsets.UTF_8.decode(buffer).toString();
+        String realCode = data.replace("\r", "").replace("\n", "");
+        Log.d("---UPCCode---", data);
+        if (!realCode.isEmpty() && realCode.matches("\\d+(?:\\.\\d+)?")) {
+            Global.upc_Code = Global.upc_Code + data;
+            if (Global.upc_Code.length() >= 12) {
+                compareUPCCode(Global.upc_Code.substring(1, Global.upc_Code.length() - 1 ));
             }
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            Log.d(TAG, e.toString());
-            Toast.makeText(UsbSerialActivity.this, "Scanner stopped", Toast.LENGTH_LONG).show();
+        } else {
+            Log.d(TAG, realCode);
         }
     }
 
     public void compareUPCCode(String upc_Code) {
-        if (upc_Code != null && !upc_Code.isEmpty()) {
-            boolean isExisted = false;
-            for (ProductModel productModel : Global.products) {
-                if (productModel.upc_code1.equals(upc_Code) || productModel.upc_code2.equals(upc_Code)) {
-                    isExisted = true;
-                    sendCommand(String.valueOf(0));
-                    Global.currentProduct = productModel;
+
+        boolean isExisted = false;
+        for (ProductModel productModel : Global.products) {
+            if (productModel.upc_code1.equals(upc_Code) || productModel.upc_code2.equals(upc_Code)) {
+                isExisted = true;
+                Global.upc_Code = "";
+                Global.currentProduct = productModel;
+                Global.isScanMode = true;
+                sendCommand(String.valueOf(0));
+                if (Global.isProductDetail) {
+                    mProductDetailContext.initialize();
+                } else {
                     Intent intent = new Intent(UsbSerialActivity.this ,ProductDetailActivity.class);
                     startActivity(intent);
                     finish();
                 }
             }
-            if (!isExisted) {
-                Toast.makeText(UsbSerialActivity.this, "There is no the product with scanned UPC code", Toast.LENGTH_LONG).show();
-            }
-        } else {
-            Toast.makeText(UsbSerialActivity.this, "There is no the product with scanned UPC code", Toast.LENGTH_LONG).show();
+        }
+        if (!isExisted) {
+            Global.upc_Code = "";
+            Toast.makeText(UsbSerialActivity.this, "Sorry we do not recognize the UPC that was scanned", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -219,6 +213,12 @@ public class UsbSerialActivity extends BaseActivity {
             sPort.setParameters(115200, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
             sPort.setDTR(true);
             sPort.setRTS(true);
+
+            if (Global.isScanMode) {
+                sendCommand(String.valueOf(0));
+                Global.isScanMode = false;
+            }
+
         } catch (IOException e) {
             Log.e(TAG, "Error setting up device: " + e.getMessage(), e);
             try {

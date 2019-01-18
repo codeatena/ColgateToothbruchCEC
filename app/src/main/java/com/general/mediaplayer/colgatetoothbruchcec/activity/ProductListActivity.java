@@ -113,6 +113,7 @@ public class ProductListActivity extends UsbSerialActivity {
 
                 Log.d("tag" ,"onItemRightClick");
                 Global.currentProduct = productModel;
+                Global.isScanMode = false;
                 Intent intent = new Intent(ProductListActivity.this ,ProductDetailActivity.class);
                 startActivity(intent);
             }
