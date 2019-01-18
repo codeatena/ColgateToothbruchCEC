@@ -10,6 +10,7 @@ import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.general.mediaplayer.colgatetoothbruchcec.model.Global;
 import com.general.mediaplayer.colgatetoothbruchcec.model.ProductModel;
@@ -51,6 +52,7 @@ public class UsbSerialActivity extends BaseActivity {
                 @Override
                 public void onRunError(Exception e) {
                     Log.d(TAG, "Runner stopped.");
+                    Toast.makeText(UsbSerialActivity.this, "Scanner stopped", Toast.LENGTH_LONG).show();
                 }
 
                 @Override
@@ -74,23 +76,33 @@ public class UsbSerialActivity extends BaseActivity {
             String realCode = upc_code.replace("\r", "").replace("\n", "");
             if (realCode.length() >= 2) {
                 compareUPCCode(realCode.substring(1, realCode.length() - 1 ));
+            } else {
+                Toast.makeText(UsbSerialActivity.this, "There is no the product with scanned UPC code", Toast.LENGTH_LONG).show();
             }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             Log.d(TAG, e.toString());
+            Toast.makeText(UsbSerialActivity.this, "Scanner stopped", Toast.LENGTH_LONG).show();
         }
     }
 
     public void compareUPCCode(String upc_Code) {
         if (upc_Code != null && !upc_Code.isEmpty()) {
+            boolean isExisted = false;
             for (ProductModel productModel : Global.products) {
                 if (productModel.upc_code1.equals(upc_Code) || productModel.upc_code2.equals(upc_Code)) {
+                    isExisted = true;
                     sendCommand(String.valueOf(0));
                     Global.currentProduct = productModel;
                     Intent intent = new Intent(UsbSerialActivity.this ,ProductDetailActivity.class);
                     startActivity(intent);
                 }
             }
+            if (!isExisted) {
+                Toast.makeText(UsbSerialActivity.this, "There is no the product with scanned UPC code", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Toast.makeText(UsbSerialActivity.this, "There is no the product with scanned UPC code", Toast.LENGTH_LONG).show();
         }
     }
 
