@@ -13,6 +13,4 @@
     <string name="string_find_brush">TO FIND\nYOUR BRUSH</string>
     <string name="string_return">RETURN</string>
     <string name="string_main_menu">TO MAIN MENU</string>
-
-    <string name="string_result_0_pop">Sorry, this is a limited POG we do not have an option for the chosen filters, please refine your filter options and try again</string>
 </resources>

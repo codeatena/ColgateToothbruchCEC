@@ -10,8 +10,6 @@ import java.util.List;
 
 public class Global {
 
-    static public int SPLASH_DISPLAY_LENGTH = 3000;
-
     static public ProductModel currentProduct;
     static public List<ProductModel> products = new ArrayList<>();
 

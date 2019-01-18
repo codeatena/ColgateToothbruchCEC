@@ -1,8 +1,5 @@
 package com.general.mediaplayer.colgatetoothbruchcec.activity;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -12,7 +9,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.general.mediaplayer.colgatetoothbruchcec.R;
 
@@ -60,7 +56,6 @@ public class LoopingActivity extends UsbSerialActivity implements View.OnClickLi
 
     @Override
     protected void onResume(){
-
         super.onResume();
         sendCommand(String.valueOf(0));
         videoView.start();

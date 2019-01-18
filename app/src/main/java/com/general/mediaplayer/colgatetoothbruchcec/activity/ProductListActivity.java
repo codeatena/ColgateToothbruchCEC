@@ -1,11 +1,8 @@
 package com.general.mediaplayer.colgatetoothbruchcec.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +13,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.general.mediaplayer.colgatetoothbruchcec.R;
 import com.general.mediaplayer.colgatetoothbruchcec.adaptor.ProductAdapter;
@@ -330,51 +326,36 @@ public class ProductListActivity extends UsbSerialActivity {
 
     public void onBack(View view) {
         sendCommand(String.valueOf(0));
-        Toast.makeText(ProductListActivity.this, getString(R.string.string_result_0_pop), Toast.LENGTH_LONG).show();
-        new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
-                Global.isBestClean = false;
-                Global.isWhiterSmile = false;
-                Global.isSpeciality = false;
-                Global.isExtraSoft = false;
-                Global.isSoft = false;
-                Global.isMedium = false;
-                Global.isColgate = false;
-                Global.isOral = false;
-                Global.isNew = false;
-                Intent intent = new Intent(ProductListActivity.this ,MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-            }
-        }, Global.SPLASH_DISPLAY_LENGTH);
+        Global.isBestClean = false;
+        Global.isWhiterSmile = false;
+        Global.isSpeciality = false;
+        Global.isExtraSoft = false;
+        Global.isSoft = false;
+        Global.isMedium = false;
+        Global.isColgate = false;
+        Global.isOral = false;
+        Global.isNew = false;
+        Intent intent = new Intent(ProductListActivity.this ,MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 
     public void onHome(View view) {
         sendCommand(String.valueOf(0));
-        Toast.makeText(ProductListActivity.this, getString(R.string.string_result_0_pop), Toast.LENGTH_LONG).show();
-        new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
-                Global.isBestClean = false;
-                Global.isWhiterSmile = false;
-                Global.isSpeciality = false;
-                Global.isExtraSoft = false;
-                Global.isSoft = false;
-                Global.isMedium = false;
-                Global.isColgate = false;
-                Global.isOral = false;
-                Global.isNew = false;
-                Intent intent = new Intent(ProductListActivity.this ,MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-            }
-        }, Global.SPLASH_DISPLAY_LENGTH);
-
+        Global.isBestClean = false;
+        Global.isWhiterSmile = false;
+        Global.isSpeciality = false;
+        Global.isExtraSoft = false;
+        Global.isSoft = false;
+        Global.isMedium = false;
+        Global.isColgate = false;
+        Global.isOral = false;
+        Global.isNew = false;
+        Intent intent = new Intent(ProductListActivity.this ,MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 
     public void onCancel(View view) {

@@ -93,21 +93,14 @@ public class UsbSerialActivity extends BaseActivity {
     public void compareUPCCode(String upc_Code) {
         if (upc_Code != null && !upc_Code.isEmpty()) {
             boolean isExisted = false;
-            for (final ProductModel productModel : Global.products) {
+            for (ProductModel productModel : Global.products) {
                 if (productModel.upc_code1.equals(upc_Code) || productModel.upc_code2.equals(upc_Code)) {
                     isExisted = true;
                     sendCommand(String.valueOf(0));
-                    Toast.makeText(UsbSerialActivity.this, getString(R.string.string_result_0_pop), Toast.LENGTH_LONG).show();
-                    new Handler().postDelayed(new Runnable(){
-                        @Override
-                        public void run() {
-                            /* Create an Intent that will start the Menu-Activity. */
-                            Global.currentProduct = productModel;
-                            Intent intent = new Intent(UsbSerialActivity.this ,ProductDetailActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    }, Global.SPLASH_DISPLAY_LENGTH);
+                    Global.currentProduct = productModel;
+                    Intent intent = new Intent(UsbSerialActivity.this ,ProductDetailActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
             if (!isExisted) {

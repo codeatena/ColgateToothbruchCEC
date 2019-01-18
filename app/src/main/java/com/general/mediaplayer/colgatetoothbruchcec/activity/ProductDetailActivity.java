@@ -134,39 +134,25 @@ public class ProductDetailActivity extends UsbSerialActivity {
 
     public void onBack(View view) {
         sendCommand(String.valueOf(0));
-        Toast.makeText(ProductDetailActivity.this, getString(R.string.string_result_0_pop), Toast.LENGTH_LONG).show();
-        new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
-                Intent intent = new Intent(ProductDetailActivity.this ,ProductListActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }, Global.SPLASH_DISPLAY_LENGTH);
+        Intent intent = new Intent(ProductDetailActivity.this ,ProductListActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void onHome(View view) {
         sendCommand(String.valueOf(0));
-        Toast.makeText(ProductDetailActivity.this, getString(R.string.string_result_0_pop), Toast.LENGTH_LONG).show();
-        new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
-                Global.isBestClean = false;
-                Global.isWhiterSmile = false;
-                Global.isSpeciality = false;
-                Global.isExtraSoft = false;
-                Global.isSoft = false;
-                Global.isMedium = false;
-                Global.isColgate = false;
-                Global.isOral = false;
-                Global.isNew = false;
-                Intent intent = new Intent(ProductDetailActivity.this ,MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-            }
-        }, Global.SPLASH_DISPLAY_LENGTH);
+        Global.isBestClean = false;
+        Global.isWhiterSmile = false;
+        Global.isSpeciality = false;
+        Global.isExtraSoft = false;
+        Global.isSoft = false;
+        Global.isMedium = false;
+        Global.isColgate = false;
+        Global.isOral = false;
+        Global.isNew = false;
+        Intent intent = new Intent(ProductDetailActivity.this ,MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 }

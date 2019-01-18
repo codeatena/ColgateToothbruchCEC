@@ -49,15 +49,8 @@ public class BaseActivity extends AppCompatActivity {
                 Global.isColgate = false;
                 Global.isOral = false;
                 Global.isNew = false;
-                Toast.makeText(BaseActivity.this, getString(R.string.string_result_0_pop), Toast.LENGTH_LONG).show();
-                new Handler().postDelayed(new Runnable(){
-                    @Override
-                    public void run() {
-                        /* Create an Intent that will start the Menu-Activity. */
-                        Intent intent = new Intent(BaseActivity.this, LoopingActivity.class);
-                        startActivity(intent);
-                    }
-                }, Global.SPLASH_DISPLAY_LENGTH);
+                Intent intent = new Intent(BaseActivity.this, LoopingActivity.class);
+                startActivity(intent);
             }
         };
 
