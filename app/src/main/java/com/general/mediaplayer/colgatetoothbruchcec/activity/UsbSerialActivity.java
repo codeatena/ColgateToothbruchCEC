@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.general.mediaplayer.colgatetoothbruchcec.R;
 import com.general.mediaplayer.colgatetoothbruchcec.model.Global;
 import com.general.mediaplayer.colgatetoothbruchcec.model.ProductModel;
 import com.hoho.android.usbserial.driver.CdcAcmSerialDriver;
@@ -93,6 +94,7 @@ public class UsbSerialActivity extends BaseActivity {
                 if (productModel.upc_code1.equals(upc_Code) || productModel.upc_code2.equals(upc_Code)) {
                     isExisted = true;
                     sendCommand(String.valueOf(0));
+                    Toast.makeText(UsbSerialActivity.this, getString(R.string.string_result_0_pop), Toast.LENGTH_LONG).show();
                     Global.currentProduct = productModel;
                     Intent intent = new Intent(UsbSerialActivity.this ,ProductDetailActivity.class);
                     startActivity(intent);

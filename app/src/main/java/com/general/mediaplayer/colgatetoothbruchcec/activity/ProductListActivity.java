@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.general.mediaplayer.colgatetoothbruchcec.R;
 import com.general.mediaplayer.colgatetoothbruchcec.adaptor.ProductAdapter;
@@ -326,6 +327,7 @@ public class ProductListActivity extends UsbSerialActivity {
 
     public void onBack(View view) {
         sendCommand(String.valueOf(0));
+        Toast.makeText(ProductListActivity.this, getString(R.string.string_result_0_pop), Toast.LENGTH_LONG).show();
         Global.isBestClean = false;
         Global.isWhiterSmile = false;
         Global.isSpeciality = false;
@@ -342,8 +344,8 @@ public class ProductListActivity extends UsbSerialActivity {
     }
 
     public void onHome(View view) {
-
         sendCommand(String.valueOf(0));
+        Toast.makeText(ProductListActivity.this, getString(R.string.string_result_0_pop), Toast.LENGTH_LONG).show();
         Global.isBestClean = false;
         Global.isWhiterSmile = false;
         Global.isSpeciality = false;

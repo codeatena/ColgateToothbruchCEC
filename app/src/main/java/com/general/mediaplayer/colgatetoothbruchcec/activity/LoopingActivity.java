@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.general.mediaplayer.colgatetoothbruchcec.R;
 
@@ -59,6 +60,7 @@ public class LoopingActivity extends UsbSerialActivity implements View.OnClickLi
 
         super.onResume();
         sendCommand(String.valueOf(0));
+        Toast.makeText(LoopingActivity.this, getString(R.string.string_result_0_pop), Toast.LENGTH_LONG).show();
         videoView.start();
 
     }

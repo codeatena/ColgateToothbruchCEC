@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.general.mediaplayer.colgatetoothbruchcec.R;
 import com.general.mediaplayer.colgatetoothbruchcec.adaptor.ProductAdapter;
@@ -129,6 +130,7 @@ public class ProductDetailActivity extends UsbSerialActivity {
 
     public void onBack(View view) {
         sendCommand(String.valueOf(0));
+        Toast.makeText(ProductDetailActivity.this, getString(R.string.string_result_0_pop), Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this ,ProductListActivity.class);
         startActivity(intent);
         finish();
@@ -136,6 +138,7 @@ public class ProductDetailActivity extends UsbSerialActivity {
 
     public void onHome(View view) {
         sendCommand(String.valueOf(0));
+        Toast.makeText(ProductDetailActivity.this, getString(R.string.string_result_0_pop), Toast.LENGTH_LONG).show();
         Global.isBestClean = false;
         Global.isWhiterSmile = false;
         Global.isSpeciality = false;
