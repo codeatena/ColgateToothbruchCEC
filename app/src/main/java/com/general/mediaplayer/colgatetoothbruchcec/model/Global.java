@@ -1,9 +1,16 @@
 package com.general.mediaplayer.colgatetoothbruchcec.model;
 
+import android.app.AlertDialog;
+import android.app.Application;
+import android.content.Context;
+import android.content.DialogInterface;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Global {
+
+    static public int SPLASH_DISPLAY_LENGTH = 3000;
 
     static public ProductModel currentProduct;
     static public List<ProductModel> products = new ArrayList<>();
@@ -21,4 +28,5 @@ public class Global {
     static public List<String> benefitFilter = new ArrayList<>();
     static public List<String> bristle_typeFilter = new ArrayList<>();
     static public List<String> brandFilter = new ArrayList<>();
+
 }

@@ -1,14 +1,17 @@
 package com.general.mediaplayer.colgatetoothbruchcec.activity;
 
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -90,15 +93,21 @@ public class UsbSerialActivity extends BaseActivity {
     public void compareUPCCode(String upc_Code) {
         if (upc_Code != null && !upc_Code.isEmpty()) {
             boolean isExisted = false;
-            for (ProductModel productModel : Global.products) {
+            for (final ProductModel productModel : Global.products) {
                 if (productModel.upc_code1.equals(upc_Code) || productModel.upc_code2.equals(upc_Code)) {
                     isExisted = true;
                     sendCommand(String.valueOf(0));
                     Toast.makeText(UsbSerialActivity.this, getString(R.string.string_result_0_pop), Toast.LENGTH_LONG).show();
-                    Global.currentProduct = productModel;
-                    Intent intent = new Intent(UsbSerialActivity.this ,ProductDetailActivity.class);
-                    startActivity(intent);
-                    finish();
+                    new Handler().postDelayed(new Runnable(){
+                        @Override
+                        public void run() {
+                            /* Create an Intent that will start the Menu-Activity. */
+                            Global.currentProduct = productModel;
+                            Intent intent = new Intent(UsbSerialActivity.this ,ProductDetailActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }, Global.SPLASH_DISPLAY_LENGTH);
                 }
             }
             if (!isExisted) {

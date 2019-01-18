@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.general.mediaplayer.colgatetoothbruchcec.R;
 import com.general.mediaplayer.colgatetoothbruchcec.model.Global;
 
 public class BaseActivity extends AppCompatActivity {
@@ -47,8 +49,15 @@ public class BaseActivity extends AppCompatActivity {
                 Global.isColgate = false;
                 Global.isOral = false;
                 Global.isNew = false;
-                Intent intent = new Intent(BaseActivity.this, LoopingActivity.class);
-                startActivity(intent);
+                Toast.makeText(BaseActivity.this, getString(R.string.string_result_0_pop), Toast.LENGTH_LONG).show();
+                new Handler().postDelayed(new Runnable(){
+                    @Override
+                    public void run() {
+                        /* Create an Intent that will start the Menu-Activity. */
+                        Intent intent = new Intent(BaseActivity.this, LoopingActivity.class);
+                        startActivity(intent);
+                    }
+                }, Global.SPLASH_DISPLAY_LENGTH);
             }
         };
 
