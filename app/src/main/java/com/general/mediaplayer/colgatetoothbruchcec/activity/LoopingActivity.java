@@ -11,7 +11,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.general.mediaplayer.colgatetoothbruchcec.R;
-import com.general.mediaplayer.colgatetoothbruchcec.model.Global;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,12 +39,12 @@ public class LoopingActivity extends UsbSerialActivity implements View.OnClickLi
         rightbottomBtn.setOnClickListener(this);
 
         videoView =  findViewById(R.id.videoView);
-        videoView.setDisplayMode(ScalableVideoView.DisplayMode.FULL_SCREEN);
+        videoView.setDisplayMode(ScalableVideoView.DisplayMode.ORIGINAL);
         videoView.setVisibility(View.VISIBLE);
         if (videoView.isPlaying()) {
             videoView.stopPlayback();
         }
-        videoView.setVideoURI(Uri.parse(Global.VIDEO_ASSETS_ROOT_PATH + "looping_video.mp4"));
+        videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.looping_video));
         videoView.requestFocus();
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -53,14 +52,9 @@ public class LoopingActivity extends UsbSerialActivity implements View.OnClickLi
                 mp.start();
             }
         });
-    }
-
-    @Override
-    protected void onResume(){
-        super.onResume();
-        sendCommand(String.valueOf(0));
         videoView.start();
-
+        sendCommand(String.valueOf(0));
+        freeMemory();
     }
 
     @Override
@@ -70,6 +64,12 @@ public class LoopingActivity extends UsbSerialActivity implements View.OnClickLi
         startActivity(intent);
         finish();
         super.onDestroy();
+    }
+
+    public void freeMemory(){
+        System.runFinalization();
+        Runtime.getRuntime().gc();
+        System.gc();
     }
 
     public void onFinish(View view)
