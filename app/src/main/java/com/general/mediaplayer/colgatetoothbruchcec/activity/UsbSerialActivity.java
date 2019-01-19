@@ -27,8 +27,8 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -188,19 +188,6 @@ public class UsbSerialActivity extends BaseActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-//        if (sPort != null) {
-//            try {
-//                sPort.close();
-//            } catch (IOException e) {
-//                // Ignore.
-//            }
-//            sPort = null;
-//        }
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mUsbReceiver);
@@ -244,19 +231,14 @@ public class UsbSerialActivity extends BaseActivity {
     public ProbeTable getDetail() {
         UsbManager manager = (UsbManager) getSystemService(Context.USB_SERVICE);
         ProbeTable customTable = new ProbeTable();
-        //customTable.addProduct(0x2a03, 0x0043, CdcAcmSerialDriver.class);
-        UsbSerialProber prober = new UsbSerialProber(customTable);
         HashMap<String, UsbDevice> deviceList = manager.getDeviceList();
-        Iterator<UsbDevice> deviceIterator = deviceList.values().iterator();
-        while (deviceIterator.hasNext()) {
-
-            UsbDevice device = deviceIterator.next();
-            String name = device.getManufacturerName().toLowerCase();
+        for (UsbDevice device : deviceList.values()) {
+            String name = Objects.requireNonNull(device.getManufacturerName()).toLowerCase();
             if (name.contains("arduino"))
                 customTable.addProduct(device.getVendorId(), device.getProductId(), CdcAcmSerialDriver.class);
-            else if(name.contains("ftdi"))
+            else if (name.contains("ftdi"))
                 customTable.addProduct(device.getVendorId(), device.getProductId(), FtdiSerialDriver.class);
-            else if(name.contains("prolific"))
+            else if (name.contains("prolific"))
                 customTable.addProduct(device.getVendorId(), device.getProductId(), ProlificSerialDriver.class);
         }
         return customTable;

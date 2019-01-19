@@ -52,24 +52,8 @@ public class LoopingActivity extends UsbSerialActivity implements View.OnClickLi
                 mp.start();
             }
         });
-        videoView.start();
         sendCommand(String.valueOf(0));
-        freeMemory();
-    }
-
-    @Override
-    protected void onDestroy() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-        super.onDestroy();
-    }
-
-    public void freeMemory(){
-        System.runFinalization();
-        Runtime.getRuntime().gc();
-        System.gc();
+        videoView.start();
     }
 
     public void onFinish(View view)
