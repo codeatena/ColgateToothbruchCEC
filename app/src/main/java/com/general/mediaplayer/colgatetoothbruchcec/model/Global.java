@@ -1,5 +1,7 @@
 package com.general.mediaplayer.colgatetoothbruchcec.model;
 
+import android.os.Environment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,4 +28,5 @@ public class Global {
     static public List<String> bristle_typeFilter = new ArrayList<>();
     static public List<String> brandFilter = new ArrayList<>();
 
+    public static final String VIDEO_ASSETS_ROOT_PATH = Environment.getExternalStorageDirectory() + "/ColgateToothBrushAssets/";
 }
