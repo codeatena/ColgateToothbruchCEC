@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.general.mediaplayer.colgatetoothbruchcec.R;
+import com.general.mediaplayer.colgatetoothbruchcec.model.Global;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +50,7 @@ public class LoopingActivity extends UsbSerialActivity implements View.OnClickLi
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                mp.setLooping(true);
                 mp.start();
             }
         });
@@ -63,6 +65,7 @@ public class LoopingActivity extends UsbSerialActivity implements View.OnClickLi
 
     public void onFinish(View view)
     {
+        Global.isLooping = true;
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

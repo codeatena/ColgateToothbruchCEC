@@ -21,6 +21,7 @@ public class Global {
     static public String upc_Code = "";
     static public Boolean isScanMode = false;
     static public Boolean isProductDetail = false;
+    static public Boolean isLooping = true;
 
     static public List<String> benefitFilter = new ArrayList<>();
     static public List<String> bristle_typeFilter = new ArrayList<>();

@@ -36,17 +36,20 @@ public class BaseActivity extends AppCompatActivity {
         mFilterResetRunnable = new Runnable() {
             @Override
             public void run() {
-                Global.isBestClean = false;
-                Global.isWhiterSmile = false;
-                Global.isSpeciality = false;
-                Global.isExtraSoft = false;
-                Global.isSoft = false;
-                Global.isMedium = false;
-                Global.isColgate = false;
-                Global.isOral = false;
-                Global.isNew = false;
-                Intent intent = new Intent(BaseActivity.this, LoopingActivity.class);
-                startActivity(intent);
+                if (Global.isLooping) {
+                    Global.isBestClean = false;
+                    Global.isWhiterSmile = false;
+                    Global.isSpeciality = false;
+                    Global.isExtraSoft = false;
+                    Global.isSoft = false;
+                    Global.isMedium = false;
+                    Global.isColgate = false;
+                    Global.isOral = false;
+                    Global.isNew = false;
+                    Global.isLooping = false;
+                    Intent intent = new Intent(BaseActivity.this, LoopingActivity.class);
+                    startActivity(intent);
+                }
             }
         };
 
