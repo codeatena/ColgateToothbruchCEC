@@ -52,8 +52,13 @@ public class LoopingActivity extends UsbSerialActivity implements View.OnClickLi
                 mp.start();
             }
         });
-        sendCommand(String.valueOf(0));
         videoView.start();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sendCommand(String.valueOf(0));
     }
 
     public void onFinish(View view)
