@@ -22,7 +22,8 @@ import com.general.mediaplayer.colgatetoothbruchcec.model.ProductModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,7 +51,7 @@ public class ProductListActivity extends UsbSerialActivity {
 
 
     ProductAdapter productAdapter;
-    List<ProductModel> filteredProducts = new ArrayList<>();
+    ArrayList<ProductModel> filteredProducts = new ArrayList<>();
 
     PopupMenu sortMenu;
 
@@ -87,10 +88,24 @@ public class ProductListActivity extends UsbSerialActivity {
     }
 
     private void recyclerInit(){
-
         productRecyclerView.setHasFixedSize(true);
         productRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        productAdapter = new ProductAdapter(filteredProducts ,this);
+        ArrayList<ProductModel> productList = new ArrayList<>();
+        for (ProductModel product : filteredProducts) {
+            boolean isSame = false;
+            if (productList.size() != 0) {
+                for (ProductModel productModel : productList) {
+                    if (productModel.productname.equals(product.productname)) {
+                        isSame = true;
+                    }
+                }
+            }
+
+            if (!isSame) {
+                productList.add(product);
+            }
+        }
+        productAdapter = new ProductAdapter(productList ,this);
         productAdapter.setListener(new ProductAdapter.OnItemClickListener() {
             @Override
             public void onItemLeftClick(ProductModel productModel) {
@@ -127,7 +142,7 @@ public class ProductListActivity extends UsbSerialActivity {
 
         sortMenu = new PopupMenu(this ,sortButton);
 
-        List <String> list = new ArrayList<>();
+        ArrayList <String> list = new ArrayList<>();
         list.add(getString(R.string.price_low_high));
         list.add(getString(R.string.price_high_low));
         list.add(getString(R.string.brand));
@@ -160,14 +175,14 @@ public class ProductListActivity extends UsbSerialActivity {
 
     private void sortProduct(String sortStr) {
 
-        List<ProductModel> benefit_products = addProduct(Global.products, Global.benefitFilter, "Benefits");
-        List<ProductModel> bristle_products = addProduct(benefit_products, Global.bristle_typeFilter, "Bristle Type");
-        List<ProductModel> products = addProduct(bristle_products, Global.brandFilter, "Brand");
+        ArrayList<ProductModel> benefit_products = addProduct(Global.products, Global.benefitFilter, "Benefits");
+        ArrayList<ProductModel> bristle_products = addProduct(benefit_products, Global.bristle_typeFilter, "Bristle Type");
+        ArrayList<ProductModel> products = addProduct(bristle_products, Global.brandFilter, "Brand");
 
         getFilteredProducts(products, sortStr);
     }
 
-    private void getFilteredProducts(List<ProductModel> products, String sortStr) {
+    private void getFilteredProducts(ArrayList<ProductModel> products, String sortStr) {
         filteredProducts = new ArrayList<>();
         if (products.size() != 0) {
             if (sortStr.equals(getString(R.string.price_low_high))) {
@@ -175,18 +190,18 @@ public class ProductListActivity extends UsbSerialActivity {
             } else if (sortStr.equals(getString(R.string.price_high_low))) {
                 filteredProducts = sortByPriceFromHigh(products);
             } else if (sortStr.equals(getString(R.string.brand))) {
-                List<String> filters = new ArrayList<>();
+                ArrayList<String> filters = new ArrayList<>();
                 filters.add("Colgate");
                 filters.add("Oral-B");
                 filteredProducts = sortByBrand(products, filters);
             } else if (sortStr.equals(getString(R.string.bristle_type))) {
-                List<String> filters = new ArrayList<>();
+                ArrayList<String> filters = new ArrayList<>();
                 filters.add("Extra Soft");
                 filters.add("Soft");
                 filters.add("Medium");
                 filteredProducts = sortByBristle_type(products, filters);
             } else if (sortStr.equals(getString(R.string.pack_size))) {
-                List<String> filters = new ArrayList<>();
+                ArrayList<String> filters = new ArrayList<>();
                 filters.add("1 pack");
                 filters.add("2 pack");
                 filters.add("3 pack");
@@ -202,8 +217,8 @@ public class ProductListActivity extends UsbSerialActivity {
         }
     }
 
-    private List<ProductModel> addProduct(List<ProductModel> products, List<String> filters, String typeStr) {
-        List<ProductModel> filtered_products = new ArrayList<>();
+    private ArrayList<ProductModel> addProduct(ArrayList<ProductModel> products, ArrayList<String> filters, String typeStr) {
+        ArrayList<ProductModel> filtered_products = new ArrayList<>();
         if (filters.size() != 0 && products.size() != 0) {
             switch (typeStr) {
                 case "Benefits":
@@ -235,7 +250,7 @@ public class ProductListActivity extends UsbSerialActivity {
         return  filtered_products;
     }
 
-    private List<ProductModel> sortByPriceFromLow(List<ProductModel> products) {
+    private ArrayList<ProductModel> sortByPriceFromLow(ArrayList<ProductModel> products) {
         Collections.sort(products, new Comparator<ProductModel>() {
             @Override
             public int compare(ProductModel o1, ProductModel o2) {
@@ -251,7 +266,7 @@ public class ProductListActivity extends UsbSerialActivity {
         return products;
     }
 
-    private List<ProductModel> sortByPriceFromHigh(List<ProductModel> products) {
+    private ArrayList<ProductModel> sortByPriceFromHigh(ArrayList<ProductModel> products) {
         Collections.sort(products, new Comparator<ProductModel>() {
             @Override
             public int compare(ProductModel o1, ProductModel o2) {
@@ -267,8 +282,8 @@ public class ProductListActivity extends UsbSerialActivity {
         return products;
     }
 
-    private List<ProductModel> sortByBrand(List<ProductModel> products, List<String> filters) {
-        List<ProductModel> sorted_products = new ArrayList<>();
+    private ArrayList<ProductModel> sortByBrand(ArrayList<ProductModel> products, ArrayList<String> filters) {
+        ArrayList<ProductModel> sorted_products = new ArrayList<>();
         for (String filter : filters) {
             for (ProductModel product : products) {
                 if (product.brand.equals(filter)) {
@@ -280,8 +295,8 @@ public class ProductListActivity extends UsbSerialActivity {
         return sorted_products;
     }
 
-    private List<ProductModel> sortByBristle_type(List<ProductModel> products, List<String> filters) {
-        List<ProductModel> sorted_products = new ArrayList<>();
+    private ArrayList<ProductModel> sortByBristle_type(ArrayList<ProductModel> products, ArrayList<String> filters) {
+        ArrayList<ProductModel> sorted_products = new ArrayList<>();
         for (String filter : filters) {
             for (ProductModel product : products) {
                 if (product.bristle_type.equals(filter)) {
@@ -293,8 +308,8 @@ public class ProductListActivity extends UsbSerialActivity {
         return sorted_products;
     }
 
-    private List<ProductModel> sortByPackSize(List<ProductModel> products, List<String> filters) {
-        List<ProductModel> sorted_products = new ArrayList<>();
+    private ArrayList<ProductModel> sortByPackSize(ArrayList<ProductModel> products, ArrayList<String> filters) {
+        ArrayList<ProductModel> sorted_products = new ArrayList<>();
         for (String filter : filters) {
             for (ProductModel product : products) {
                 if (product.packSize.equals(filter)) {
@@ -306,7 +321,7 @@ public class ProductListActivity extends UsbSerialActivity {
         return sorted_products;
     }
 
-    public static boolean stringEqualsItemFromList(String inputStr, List<String> items)
+    public static boolean stringEqualsItemFromList(String inputStr, ArrayList<String> items)
     {
         for (String item : items) {
             if(inputStr.equals(item)) {
@@ -317,7 +332,7 @@ public class ProductListActivity extends UsbSerialActivity {
         return false;
     }
 
-    private void addMenu(PopupMenu menu ,List<String> list)
+    private void addMenu(PopupMenu menu ,ArrayList<String> list)
     {
         int order = 0;
         for (String str : list){

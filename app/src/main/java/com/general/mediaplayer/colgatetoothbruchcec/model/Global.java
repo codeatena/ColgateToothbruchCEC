@@ -6,7 +6,7 @@ import java.util.List;
 public class Global {
 
     static public ProductModel currentProduct;
-    static public List<ProductModel> products = new ArrayList<>();
+    static public ArrayList<ProductModel> products = new ArrayList<>();
 
     static public Boolean isBestClean = false;
     static public Boolean isWhiterSmile = false;
@@ -23,7 +23,7 @@ public class Global {
     static public Boolean isProductDetail = false;
     static public Boolean isLooping = true;
 
-    static public List<String> benefitFilter = new ArrayList<>();
-    static public List<String> bristle_typeFilter = new ArrayList<>();
-    static public List<String> brandFilter = new ArrayList<>();
+    static public ArrayList<String> benefitFilter = new ArrayList<>();
+    static public ArrayList<String> bristle_typeFilter = new ArrayList<>();
+    static public ArrayList<String> brandFilter = new ArrayList<>();
 }

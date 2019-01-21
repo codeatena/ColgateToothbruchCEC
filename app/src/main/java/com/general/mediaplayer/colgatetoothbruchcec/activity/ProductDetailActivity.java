@@ -83,7 +83,6 @@ public class ProductDetailActivity extends UsbSerialActivity {
     }
 
     public void initialize(){
-
         Drawable drawable = ProductAdapter.loadDrawableFromAssets(this ,Global.currentProduct.product_image);
         thumbImageView.setImageDrawable(drawable);
 
