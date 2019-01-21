@@ -22,8 +22,6 @@ import com.general.mediaplayer.colgatetoothbruchcec.model.ProductModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -90,22 +88,22 @@ public class ProductListActivity extends UsbSerialActivity {
     private void recyclerInit(){
         productRecyclerView.setHasFixedSize(true);
         productRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        ArrayList<ProductModel> productList = new ArrayList<>();
-        for (ProductModel product : filteredProducts) {
-            boolean isSame = false;
-            if (productList.size() != 0) {
-                for (ProductModel productModel : productList) {
-                    if (productModel.productname.equals(product.productname)) {
-                        isSame = true;
-                    }
-                }
-            }
-
-            if (!isSame) {
-                productList.add(product);
-            }
-        }
-        productAdapter = new ProductAdapter(productList ,this);
+//        ArrayList<ProductModel> productList = new ArrayList<>();
+//        for (ProductModel product : filteredProducts) {
+//            boolean isSame = false;
+//            if (productList.size() != 0) {
+//                for (ProductModel productModel : productList) {
+//                    if (productModel.productname.equals(product.productname)) {
+//                        isSame = true;
+//                    }
+//                }
+//            }
+//
+//            if (!isSame) {
+//                productList.add(product);
+//            }
+//        }
+        productAdapter = new ProductAdapter(filteredProducts ,this);
         productAdapter.setListener(new ProductAdapter.OnItemClickListener() {
             @Override
             public void onItemLeftClick(ProductModel productModel) {
