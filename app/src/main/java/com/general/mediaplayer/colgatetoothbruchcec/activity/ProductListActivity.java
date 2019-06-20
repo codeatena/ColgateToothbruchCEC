@@ -25,15 +25,14 @@ import java.util.Comparator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import mehdi.sakout.fancybuttons.FancyButton;
 
 public class ProductListActivity extends UsbSerialActivity {
 
     @BindView(R.id.product_recycler)
     RecyclerView productRecyclerView;
 
-    @BindView(R.id.sort_button)
-    FancyButton sortButton;
+    @BindView(R.id.img_Sort)
+    ImageView img_Sort;
 
     @BindView(R.id.detail_layout)
     RelativeLayout detailLayout;
@@ -138,7 +137,7 @@ public class ProductListActivity extends UsbSerialActivity {
 
     private void popupInit(){
 
-        sortMenu = new PopupMenu(this ,sortButton);
+        sortMenu = new PopupMenu(this ,img_Sort);
 
         ArrayList <String> list = new ArrayList<>();
         list.add(getString(R.string.price_low_high));
@@ -149,7 +148,7 @@ public class ProductListActivity extends UsbSerialActivity {
 
         addMenu(sortMenu ,list);
 
-        sortButton.setOnClickListener(new View.OnClickListener() {
+        img_Sort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

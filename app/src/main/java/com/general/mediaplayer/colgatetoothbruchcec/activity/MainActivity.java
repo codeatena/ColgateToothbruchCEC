@@ -1,10 +1,9 @@
 package com.general.mediaplayer.colgatetoothbruchcec.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.general.mediaplayer.colgatetoothbruchcec.R;
@@ -22,31 +21,37 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends UsbSerialActivity {
+public class MainActivity extends UsbSerialActivity implements View.OnClickListener {
 
-    @BindView(R.id.btnBestClean)
-    RelativeLayout btnBestClean;
+    @BindView(R.id.img_BestClean)
+    ImageView img_BestClean;
 
-    @BindView(R.id.btnWhiterSmile)
-    RelativeLayout btnWhiterSmile;
+    @BindView(R.id.img_WhiterSmile)
+    ImageView img_WhiterSmile;
 
-    @BindView(R.id.btnSpeciality)
-    RelativeLayout btnSpeciality;
+    @BindView(R.id.img_Specialty)
+    ImageView img_Specialty;
 
-    @BindView(R.id.btnExtraSoft)
-    RelativeLayout btnExtraSoft;
+    @BindView(R.id.img_ExtraSoft)
+    ImageView img_ExtraSoft;
 
-    @BindView(R.id.btnSoft)
-    RelativeLayout btnSoft;
+    @BindView(R.id.img_Soft)
+    ImageView img_Soft;
 
-    @BindView(R.id.btnMedium)
-    RelativeLayout btnMedium;
+    @BindView(R.id.img_Medium)
+    ImageView img_Medium;
 
-    @BindView(R.id.btnColgate)
-    RelativeLayout btnColgate;
+    @BindView(R.id.img_colgate)
+    ImageView img_colgate;
 
-    @BindView(R.id.btnOral)
-    RelativeLayout btnOral;
+    @BindView(R.id.img_oral)
+    ImageView img_oral;
+
+    @BindView(R.id.img_WhatNew)
+    ImageView img_WhatNew;
+
+    @BindView(R.id.img_Next)
+    ImageView img_Next;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +64,7 @@ public class MainActivity extends UsbSerialActivity {
 
         initUI();
 
-        setEventsHandler();
+        setControlEvents();
     }
 
     @Override
@@ -69,137 +74,67 @@ public class MainActivity extends UsbSerialActivity {
         initUI();
     }
 
-    public void onSubmit(View view){
-        Global.isNew = false;
-        if (checkFiltering()) {
-            Intent intent = new Intent(this ,ProductListActivity.class);
-            startActivity(intent);
-        } else {
-            Toast.makeText(MainActivity.this, getString(R.string.alert_find_brash), Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public void onWhatNew(View view) {
-        Global.isNew = true;
-        Intent intent = new Intent(this ,ProductListActivity.class);
-        startActivity(intent);
-    }
-
     private void initUI() {
         if (Global.isBestClean) {
-            btnBestClean.setBackground(getResources().getDrawable(R.drawable.rounded_corner));
+            img_BestClean.setImageResource(R.drawable.best_clean_selected);
         } else {
-            btnBestClean.setBackgroundColor(Color.TRANSPARENT);
+            img_BestClean.setImageResource(R.drawable.best_clean_unselected);
         }
 
         if (Global.isWhiterSmile) {
-            btnWhiterSmile.setBackground(getResources().getDrawable(R.drawable.rounded_corner));
+            img_WhiterSmile.setImageResource(R.drawable.whiter_smile_selected);
         } else {
-            btnWhiterSmile.setBackgroundColor(Color.TRANSPARENT);
+            img_WhiterSmile.setImageResource(R.drawable.whiter_smile_unselected);
         }
 
         if (Global.isSpeciality) {
-            btnSpeciality.setBackground(getResources().getDrawable(R.drawable.rounded_corner));
+            img_Specialty.setImageResource(R.drawable.specialty_selected);
         } else {
-            btnSpeciality.setBackgroundColor(Color.TRANSPARENT);
+            img_Specialty.setImageResource(R.drawable.specialty_unselected);
         }
 
         if (Global.isExtraSoft) {
-            btnExtraSoft.setBackground(getResources().getDrawable(R.drawable.rounded_corner));
+            img_ExtraSoft.setImageResource(R.drawable.extra_soft_selected);
         } else {
-            btnExtraSoft.setBackgroundColor(Color.TRANSPARENT);
+            img_ExtraSoft.setImageResource(R.drawable.extra_soft_unselected);
         }
 
         if (Global.isSoft) {
-            btnSoft.setBackground(getResources().getDrawable(R.drawable.rounded_corner));
+            img_Soft.setImageResource(R.drawable.soft_selected);
         } else {
-            btnSoft.setBackgroundColor(Color.TRANSPARENT);
+            img_Soft.setImageResource(R.drawable.soft_unselected);
         }
 
         if (Global.isMedium) {
-            btnMedium.setBackground(getResources().getDrawable(R.drawable.rounded_corner));
+            img_Medium.setImageResource(R.drawable.medium_selected);
         } else {
-            btnMedium.setBackgroundColor(Color.TRANSPARENT);
+            img_Medium.setImageResource(R.drawable.medium_unselected);
         }
 
         if (Global.isColgate) {
-            btnColgate.setBackground(getResources().getDrawable(R.drawable.rounded_corner));
+            img_colgate.setImageResource(R.drawable.colgatel_selected);
         } else {
-            btnColgate.setBackgroundColor(Color.TRANSPARENT);
+            img_colgate.setImageResource(R.drawable.colgatel_unselected);
         }
 
         if (Global.isOral) {
-            btnOral.setBackground(getResources().getDrawable(R.drawable.rounded_corner));
+            img_oral.setImageResource(R.drawable.oral_selected);
         } else {
-            btnOral.setBackgroundColor(Color.TRANSPARENT);
+            img_oral.setImageResource(R.drawable.oral_unselected);
         }
     }
 
-    private void setEventsHandler() {
-        btnBestClean.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Global.isBestClean = !Global.isBestClean;
-                initUI();
-            }
-        });
-
-        btnWhiterSmile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Global.isWhiterSmile = !Global.isWhiterSmile;
-                initUI();
-            }
-        });
-
-        btnSpeciality.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Global.isSpeciality = !Global.isSpeciality;
-                initUI();
-            }
-        });
-
-        btnExtraSoft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Global.isExtraSoft = !Global.isExtraSoft;
-                initUI();
-            }
-        });
-
-        btnSoft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Global.isSoft = !Global.isSoft;
-                initUI();
-            }
-        });
-
-        btnMedium.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Global.isMedium = !Global.isMedium;
-                initUI();
-            }
-        });
-
-        btnColgate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Global.isColgate = !Global.isColgate;
-                initUI();
-            }
-        });
-
-        btnOral.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Global.isOral = !Global.isOral;
-                initUI();
-            }
-        });
-
+    private void setControlEvents() {
+        img_BestClean.setOnClickListener(this);
+        img_WhiterSmile.setOnClickListener(this);
+        img_Specialty.setOnClickListener(this);
+        img_ExtraSoft.setOnClickListener(this);
+        img_Soft.setOnClickListener(this);
+        img_Medium.setOnClickListener(this);
+        img_colgate.setOnClickListener(this);
+        img_oral.setOnClickListener(this);
+        img_WhatNew.setOnClickListener(this);
+        img_Next.setOnClickListener(this);
     }
 
     private void parseJson()
@@ -272,5 +207,60 @@ public class MainActivity extends UsbSerialActivity {
         }
 
         return Global.benefitFilter.size() != 0 || Global.bristle_typeFilter.size() != 0 || Global.brandFilter.size() != 0;
+    }
+
+    private void gotoProductListScreen() {
+        Intent intent = new Intent(this ,ProductListActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.img_BestClean:
+                Global.isBestClean = !Global.isBestClean;
+                initUI();
+                break;
+            case R.id.img_WhiterSmile:
+                Global.isWhiterSmile = !Global.isWhiterSmile;
+                initUI();
+                break;
+            case R.id.img_Specialty:
+                Global.isSpeciality = !Global.isSpeciality;
+                initUI();
+                break;
+            case R.id.img_ExtraSoft:
+                Global.isExtraSoft = !Global.isExtraSoft;
+                initUI();
+                break;
+            case R.id.img_Soft:
+                Global.isSoft = !Global.isSoft;
+                initUI();
+                break;
+            case R.id.img_Medium:
+                Global.isMedium = !Global.isMedium;
+                initUI();
+                break;
+            case R.id.img_colgate:
+                Global.isColgate = !Global.isColgate;
+                initUI();
+                break;
+            case R.id.img_oral:
+                Global.isOral = !Global.isOral;
+                initUI();
+                break;
+            case R.id.img_WhatNew:
+                Global.isNew = true;
+                gotoProductListScreen();
+                break;
+            case R.id.img_Next:
+                Global.isNew = false;
+                if (checkFiltering()) {
+                    gotoProductListScreen();
+                } else {
+                    Toast.makeText(MainActivity.this, getString(R.string.alert_find_brash), Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
     }
 }

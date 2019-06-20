@@ -45,9 +45,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductA
     public void onBindViewHolder(@NonNull final ProductAdapterHolder holder, int position) {
 
         if (position % 2 == 1){
-            holder.parentView.setBackgroundColor(context.getResources().getColor(R.color.light_gray));
+            holder.parentView.setBackground(context.getResources().getDrawable(R.drawable.cell));
         }else {
-            holder.parentView.setBackgroundColor(context.getResources().getColor(R.color.light_gray1));
+            holder.parentView.setBackgroundColor(context.getResources().getColor(R.color.light_gray));
         }
 
         Drawable myDrawable;
@@ -56,6 +56,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductA
         }else {
             myDrawable = context.getResources().getDrawable(R.drawable.oral);
         }
+
         holder.colgateImageView.setImageDrawable(myDrawable);
         holder.ratingBar.setRating(list.get(position).star);
         holder.nameTextView.setText(list.get(position).productname);
@@ -123,7 +124,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductA
             leftView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onItemLeftClick(productModel);
+                    listener.onItemRightClick(productModel);
                 }
             });
 

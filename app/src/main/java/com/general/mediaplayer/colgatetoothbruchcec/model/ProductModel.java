@@ -20,6 +20,7 @@ public class ProductModel {
     public String section;
     public String newproduct;
     public float star;
+    public String find_button;
 
     public ProductModel(JSONObject jsonObject){
 
@@ -39,6 +40,7 @@ public class ProductModel {
             this.newproduct = jsonObject.getString("newproduct");
             this.section = jsonObject.getString("section");
             this.star = Float.valueOf(jsonObject.getString("star"));
+            this.find_button = jsonObject.getString("find_button");
 
         } catch (Exception e){
             Log.d("Error", e.getLocalizedMessage());

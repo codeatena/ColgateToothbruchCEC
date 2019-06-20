@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:fancy="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.ProductListActivity"
-    android:background="@color/light_gray1">
+    android:background="@color/light_gray">
 
 
     <RelativeLayout
@@ -43,22 +41,18 @@
             android:onClick="onBack"/>
 
 
-        <mehdi.sakout.fancybuttons.FancyButton
-            android:id="@+id/sort_button"
-            android:layout_width="200dp"
+        <ImageView
+            android:id="@+id/img_Sort"
+            android:layout_width="205dp"
             android:layout_height="70dp"
-            android:text="SORT BY:"
-            android:textSize="25sp"
-            fancy:fb_textColor="@android:color/white"
-            fancy:fb_defaultColor="@color/blue"
-            fancy:fb_borderWidth="3dp"
-            fancy:fb_borderColor="@color/blue"
-            fancy:fb_radius="10dp"
+            android:src="@drawable/sort"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="30dp"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            />
+            android:layout_alignParentBottom="true"/>
+
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="70dp"

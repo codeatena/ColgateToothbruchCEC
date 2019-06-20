@@ -2,5 +2,5 @@
 <resources>
     <dimen name="border_width">6dp</dimen>
     <dimen name="corner_radius">18dp</dimen>
-    <dimen name="image_size">150dp</dimen>
+    <dimen name="image_size">200dp</dimen>
 </resources>

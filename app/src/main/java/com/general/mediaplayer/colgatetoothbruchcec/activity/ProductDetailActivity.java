@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -12,7 +13,6 @@ import android.widget.TextView;
 import com.general.mediaplayer.colgatetoothbruchcec.R;
 import com.general.mediaplayer.colgatetoothbruchcec.adaptor.ProductAdapter;
 import com.general.mediaplayer.colgatetoothbruchcec.model.Global;
-import com.jcminarro.roundkornerlayout.RoundKornerLinearLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,14 +47,8 @@ public class ProductDetailActivity extends UsbSerialActivity {
     @BindView(R.id.checkbox_4pack)
     CheckBox checkbox_4pack;
 
-    @BindView(R.id.btnPress)
-    RoundKornerLinearLayout btnPress;
-
-    @BindView(R.id.txtPress)
-    TextView txtPress;
-
-    @BindView(R.id.txtFindBrash)
-    TextView txtFindBrash;
+    @BindView(R.id.img_Press)
+    ImageView img_Press;
 
     Boolean isPressBtnClicked = false;
 
@@ -87,8 +81,7 @@ public class ProductDetailActivity extends UsbSerialActivity {
         thumbImageView.setImageDrawable(drawable);
 
         isPressBtnClicked = false;
-        txtPress.setText(getString(R.string.string_press));
-        txtFindBrash.setText(getString(R.string.string_find_brush));
+        img_Press.setImageResource(R.drawable.press_here);
 
         nameTextView.setText(Global.currentProduct.productname);
         descriptionTextView.setText(Global.currentProduct.long_description);
@@ -117,25 +110,24 @@ public class ProductDetailActivity extends UsbSerialActivity {
         ratingBar.setRating(Global.currentProduct.star);
         priceTextView.setText(Global.currentProduct.price);
 
-        if (Global.currentProduct.brand.equals("Oral-B")) {
-            btnPress.setVisibility(View.INVISIBLE);
+        if (Global.currentProduct.find_button.equals("False")) {
+            img_Press.setVisibility(View.INVISIBLE);
         } else {
-            btnPress.setVisibility(View.VISIBLE);
+            img_Press.setVisibility(View.VISIBLE);
         }
 
-        btnPress.setOnClickListener(new View.OnClickListener() {
+        img_Press.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isPressBtnClicked) {
                     isPressBtnClicked = false;
-                    txtPress.setText(getString(R.string.string_press));
-                    txtFindBrash.setText(getString(R.string.string_find_brush));
+                    img_Press.setImageResource(R.drawable.press_here);
                     onHome(v);
                 } else {
                     isPressBtnClicked = true;
+                    Log.d("Product Serial Number", Global.currentProduct.section);
                     sendCommand(Global.currentProduct.section);
-                    txtPress.setText(getString(R.string.string_return));
-                    txtFindBrash.setText(getString(R.string.string_main_menu));
+                    img_Press.setImageResource(R.drawable.return_main);
                 }
             }
         });

@@ -5,9 +5,10 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="white">#ffffff</color>
-    <color name="light_gray">#d3d5dc</color>
-    <color name="light_gray1">#f1f1f3</color>
+    <color name="light_gray">#f1f1f3</color>
     <color name="drak_gray">#696b70</color>
     <color name="blue">#4e98c4</color>
-
+    <color name="dark_blue">#00aeef</color>
+    <color name="gradient_startcolor">#3eafcf</color>
+    <color name="gradient_endcolor">#12edef</color>
 </resources>
